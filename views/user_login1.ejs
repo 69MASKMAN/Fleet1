@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="images/icon.png">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap Files CDN link -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap-social.css"  />
+
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png">
+
+    <!-- firebase javascript SDK -->
+
+
+    <title>User Login</title>
+
+  </head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8">
+          <!-- Makes POST request to /login route -->
+
+        <form class="form-signin form-features" action="/login" method="POST">
+          <img class="mb-4" src="images/logo.png" alt="" width="130" height="130">
+          <h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
+          <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
+          <input type="password" name="password" class="form-control" placeholder="Password" required>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          <br />
+          <a href="/signup1"><button type="button" class="btn btn-lg btn-primary login-button">New User -> SignUp</button></a>
+        </form>
+
+      </div>
+
+      <!-- Vertical line -->
+      <div class="vr">&nbsp;</div>
+
+      <!-- other login options -->
+      <div class="col-lg-2 social-media">
+        <div class="google-button social-media-button">
+          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+            <i class="fab fa-google"></i>
+            Login | google
+          </a>
+        </div>
+        <div class="facebook-button social-media-button">
+          <a class="btn btn-block btn-social btn-facebook" href="" role="button">
+            <i class="fab fa-facebook"></i>
+            Login | facebook
+          </a>
+        </div>
+        <div class="instagram-button social-media-button">
+          <a class="btn btn-block btn-social btn-instagram" href="" role="button">
+            <i class="fab fa-instagram"></i>
+            Login | instagram
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+   <!-- including the firebase SDK -->
+   <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAQHHxaZEyU99Q4DUvFqW5iuP2iZBiIkkA",
+    authDomain: "fir-basics-539e4.firebaseapp.com",
+    databaseURL: "https://fir-basics-539e4.firebaseio.com",
+    projectId: "fir-basics-539e4",
+    storageBucket: "fir-basics-539e4.appspot.com",
+    messagingSenderId: "143391606910",
+    appId: "1:143391606910:web:739b741d61c21eeb77302f",
+    measurementId: "G-G7739HHY88"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+
+
+<%- include("partials/footer") -%>

@@ -1,0 +1,113 @@
+           <%- include("partials/header") -%>
+               <title>User Page</title>
+             </head>
+           <body>
+
+             <section id="user_DashBoard">
+               <div class="row r_1">
+                   <div class="col-lg-3 c_1">
+                       <div class="cross_bar"><i class="fas fa-times" id="cross"></i></div>
+                      <div class="dp"> <img src="images/dp.jpeg"></div>
+                      <hr class="line"><br>
+                      <h1>Angela johnson</h1><br>
+                      <hr class="line"><br />
+                        <div class="location-message"> </div><br />
+                      <form class="admin-style" action="/signout" method="post">
+                         <button type="submit" name="button">Log Out!</button>
+                      </form>
+                   </div>
+                   <div class="col-lg-9 c_2">
+                       <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
+                           <div class="row c_2_r container-fluid" id="c_2_r_1">
+                               <div class="upper_cards col-lg-4">
+                                   <div class="card">
+                                       <div class="card-header">
+                                           <img class="my_image" src="images/dp.jpeg">
+                                       </div>
+                                       <div class="card-body">
+                                           <h4>UPDATE PROFILE</h4>
+                                           <p>
+                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                             Deserunt necessitatibus quasi sit! Ducimus,
+                                             nobis suscipit quasi sequi officiis facilis voluptatem!
+                                           </p>
+                                       </div>
+
+                                   </div>
+                               </div>
+                               <div class="upper_cards col-lg-4">
+                                   <div class="card">
+                                       <div class="card-header">
+                                           <img class="my_image" src="images/billing.jpg">
+                                       </div>
+                                       <div class="card-body">
+                                           <h4>BILLING PLANS </h4>
+                                           <p>
+                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                             Deserunt necessitatibus quasi sit! Ducimus donum,
+                                             nobis suscipit quasi sequi officiis facilis voluptatem!
+                                           </p>
+                                       </div>
+
+                                   </div>
+                               </div>
+                               <div class="upper_cards col-lg-4">
+                                   <div class="card">
+                                       <div class="card-header">
+                                           <img class="my_image" src="images/user.jpg">
+                                       </div>
+                                       <div class="card-body">
+                                           <h4>USER MANAGEMENT </h4>
+                                           <p>
+                                             Lorem ipsum dolor sit amet, arthrorasis consectetur adipisicing elit.
+                                             Deserunt necessitatibus quasi sit! Ducimus,
+                                             nobis suscipit quasi sequi officiis facilis voluptatem!
+                                           </p>
+                                       </div>
+
+                                   </div>
+                               </div>
+                           </div>
+
+
+                           <div class="row c_2_r container-fluid" id="c_2_r_2">
+                               <div class="lower_cards col-lg-4">
+                                   <div class="card">
+                                       <div class="card-header">
+                                           <i class="my_icon fas fa-tools"></i>
+                                       </div>
+                                       <div class="card-body">
+                                           <h2>GROUP MANAGEMENT</h2>
+                                       </div>
+
+                                   </div>
+                               </div>
+
+                                   <div class="lower_cards col-lg-4">
+                                       <div class="card">
+                                           <div class="card-header">
+                                               <i class="my_icon fas fa-user"></i>
+                                           </div>
+                                           <div class="card-body">
+                                               <h2>MY DRIVERS</h2>
+                                           </div>
+
+                                       </div>
+                                   </div>
+                                   <div class="lower_cards col-lg-4">
+                                       <div class="card">
+                                           <div class="card-header">
+                                               <i class="my_icon fas fa-car"></i>
+                                           </div>
+                                           <div class="card-body">
+                                               <h2>MY VEHICLES</h2>
+                                           </div>
+
+                                       </div>
+                                   </div>
+                           </div>
+                       </div>
+               </div>
+           </section>
+
+  <%- include("partials/footer") -%>

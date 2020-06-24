@@ -1,0 +1,5 @@
+#1 ignoring modules files
+node_modules
+
+#2 ignoring environment variables
+.env

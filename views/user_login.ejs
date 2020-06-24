@@ -1,0 +1,27 @@
+<%- include("partials/header") -%>
+    <title>User Login</title>
+  </head>
+<body>
+
+    <div class="form">
+        <div clsss="signin_title"><h3><i class="fa fa-sign-in mr-3" style="font-size:40px;"></i>Please Sign In to your account</h3></div><hr>
+        <form action="/signin" method="POST">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Your name</label>
+                <input type="text" class="form-control my_input" name="name" placeholder="enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">email</label>
+                <input type="email" class="form-control my_input " name="email" placeholder=" enter your email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">password</label>
+                <input type="password" class="form-control my_input" name="password" placeholder="enter your password">
+            </div>
+            <!-- <input type="hidden" name="_csrf" value="{{ csrfToken }}" > -->
+            <button type="submit" class="btn btn-primary login_btn">Sign In</button>
+        </form><br>
+        <p class="my_redirector">New user ? <a href="/signup">Sign Up</a></p>
+    </div>
+
+<%- include("partials/footer") -%>
