@@ -10,16 +10,8 @@ require('firebase/database');
 
 // TODO: Replace the following with your app's Firebase project configuration
 // Your web app's Firebase configuration
- var firebaseConfig = {
-   apiKey: "AIzaSyBAT7jlXvKKoBH8PWJZ062tK-y1PJEiubE",
-   authDomain: "trackinapp-71a43.firebaseapp.com",
-   databaseURL: "https://trackinapp-71a43.firebaseio.com",
-   projectId: "trackinapp-71a43",
-   storageBucket: "trackinapp-71a43.appspot.com",
-   messagingSenderId: "555428964895",
-   appId: "1:555428964895:web:d80bbefd61ec8bcdf3c32a",
-   measurementId: "G-L2DQD0FKRQ"
- };
+
+//Ask author for configuration file
 
  // Initialize Firebase
  firebase.initializeApp(firebaseConfig);
