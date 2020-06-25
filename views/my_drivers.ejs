@@ -1,0 +1,126 @@
+<%- include("partials/header") -%>
+<title>my Drivers</title>
+</head>
+<body>
+
+
+<div class="add_driver">
+    <h2><em>Add new Driver</em></h2>
+    <form method="POST" action="/my_drivers">
+        <div class="form-row">
+            <div class="col-md-2 mt-4">
+              <input type="text" class="form-control" placeholder="First name">
+            </div>
+            <div class="col-md-2 mt-4">
+              <input type="tel" class="form-control" placeholder="Phone No.">
+            </div>
+            <div class="col-md-2 mt-4">
+                <input type="number" class="form-control" placeholder="Licence No.">
+            </div>
+            <div class="col-md-2 mt-4">
+                <input type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-2 mt-4">
+                <textarea class="form-control" placeholder="Address"></textarea>
+            </div>
+            <div class="col-md-2 mt-4">
+                <button type="submit">Add driver</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="driver_table">
+      <table class="table">
+        <thead class=" bg-danger text-white">
+          <tr>
+            <th scope="col">D id</th>
+            <th scope="col"> Image</th>
+            <th scope="col">Created on</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col"> Licence No.</th>
+            <th scope="col">Email </th>
+            <th scope="col">Address</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="index" scope="row">1</th>
+            <td><img class="driver_pic" src="images/dp.jpeg"></td>
+            <td>23-09-2018</td>
+            <td>Marina</td>
+            <td>2279 346 129</td>
+            <td>WB0297 D08</td>
+            <td>marina32gmail.com</td>
+            <td> wellstreet, London</td>
+            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+          </tr>
+          <tr class="table-danger">
+            <th class="index" scope="row">2</th>
+            <td><img class="driver_pic" src="images/billing.jpg"></td>
+            <td>23-09-2018</td>
+            <td>Peter</td>
+            <td>2259 346 183</td>
+            <td>WB0297 D08</td>
+            <td>peter323gmail.com</td>
+            <td>pinkcity,Rajasthan, India</td>
+            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+          </tr>
+          <tr>
+            <th class="index" scope="row">3</th>
+            <td><img class="driver_pic" src="images/dp.jpeg"></td>
+            <td>23-09-2018</td>
+            <td>Angela</td>
+            <td>8834 912 345</td>
+            <td>WB0297 D08</td>
+            <td>angela0234gmail.com</td>
+            <td>23 wellstreet, London</td>
+            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+          </tr>
+          <tr class="table-danger">
+            <th class="index" scope="row">4</th>
+            <td><img class="driver_pic" src="images/billing.jpg"></td>
+            <td>23-09-2018</td>
+            <td>Johans latherin</td>
+            <td>2279 346 129</td>
+            <td>WB0297 D08</td>
+            <td>johsns352gmail.com</td>
+            <td>23 wellstreet, London</td>
+            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+          </tr>
+          <tr>
+            <th class="index" scope="row">5</th>
+            <td><img class="driver_pic" src="images/dp.jpeg"></td>
+            <td>23-09-2018</td>
+            <td>Jack andrew</td>
+            <td>2279 346 129</td>
+            <td>we98097 D08</td>
+            <td>marinalathrin32gmail.com</td>
+            <td>23 Megastreet, London</td>
+            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+          </tr>
+          <tr class="table-danger">
+            <th class="index" scope="row">6</th>
+            <td><img class="driver_pic" src="images/dp.jpeg"></td>
+            <td>23-09-2018</td>
+            <td>Peter</td>
+            <td>2279 346 129</td>
+            <td>WB0297 D08</td>
+            <td>petr54%gmail.com</td>
+            <td>23 wellstreet, London</td>
+            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+
+
+
+
+
+
+<%- include("partials/footer") -%>

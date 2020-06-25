@@ -135,8 +135,6 @@ app.post('/signup',(req,res)=>{
        console.log(error);
      });
 
-
-
    //this function gets triggered automatically
    //whenever there is a change
    //For getting user UID
@@ -185,6 +183,9 @@ app.post('/signout',(req,res)=>{
   res.redirect('/');
 });
 
+app.get('/my_drivers', (req, res) => {
+  res.render('my_drivers')
+})
 
 //listenenr function
 
