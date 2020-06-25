@@ -390,10 +390,59 @@ h4{
   vertical-align: middle;
   padding: 1%;
 }
+.driver_table td i {
+  transition: 0.1s ease-in;
+}
+.driver_table td i:hover {
+  color: rgb(236, 171, 30);
+}
 .driver_table td .driver_pic {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   margin: 0;
-  border: 3px solid #ca7575;
+  border: 4px solid #cc5454;
+}
+
+/* ////////////////////////////////////////////////////////////////CONTACT US CSS////////////////////////////////////////////////////////////// */
+
+.contact_us_heading {
+  margin: 3% 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  color: #ad3a3a;
+}
+.contact_us {
+  margin-top: 5%;
+  padding: 0 3%;
+}
+.contact_details {
+  border-radius: 10px;
+  padding: 3% 7%;
+  transition: 0.3s ease-in-out;
+}
+.contact_details:hover {
+  box-shadow: 0 20px 35px #ebe6e6;
+}
+.contact_details div {
+  padding: 3% 0;
+}
+.contact_details div h3 {
+  font-size: 25px;
+  text-transform: capitalize;
+  color: #ad3a3a;
+}
+.message {
+  padding: 3% 5%;
+}
+.message form {
+  position: relative;
+}
+.message form textarea, .message form textarea:focus {
+  background-color: #fce8c4;
+}
+.message form button {
+  font-weight: bold;
 }

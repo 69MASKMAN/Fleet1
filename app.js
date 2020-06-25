@@ -186,6 +186,9 @@ app.post('/signout',(req,res)=>{
 app.get('/my_drivers', (req, res) => {
   res.render('my_drivers')
 })
+app.get('/contact_us', (req, res) => {
+  res.render('contact_us')
+})
 
 //listenenr function
 

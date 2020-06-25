@@ -1,0 +1,47 @@
+<%- include("partials/header") -%>
+<title>Contact us</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1 class="contact_us_heading">Contact Us</h1>
+    <div class="row contact_us">
+        <div class="col-lg-5 contact_details">
+            <div>
+                <h3>Mailing Address</h3>
+                <p>123 Anywhere, Any City, State, Country, 12345</p>
+            </div>
+            <div>
+                <h3>Email Address</h3>
+                <p>abcd@gmail.com</p>
+            </div>
+            <div>
+                <h3>Phone Number</h3>
+                <p>(123) 4567890</p>
+            </div>
+        </div>
+        <div class="col-lg-7 message">
+            <form method="POST" action="/contact_us">
+                    <div>
+                        <textarea class="form-control" placeholder="Address" rows="13"></textarea>
+                    </div>
+                    <div>
+                        <button class="mt-4 ml-0 btn btn-danger" type="submit">Send</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<%- include("partials/footer") -%>
