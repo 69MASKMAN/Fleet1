@@ -244,6 +244,14 @@ input[type=email]:focus,
   border-top: 10px solid #000;
   width: 50%;
 }
+.my_link{
+  color: #fff;
+  text-decoration: none;
+}
+.my_link:hover{
+  color: #e76868;
+  text-decoration: none;
+}
 /* ///////////////////////////////////////////////////////////////////////////////////// */
 h4{
   color: #bb2121;
@@ -340,7 +348,7 @@ h4{
   margin: 0 auto;
   font-weight: 600;
   border: 3px solid #fff;
-} 
+}
 
 
 /* /////////////////////////////////////////////////////////////////DRIVER'S PAGE CSS ///////////////////////////////////////////////////////// */
@@ -363,15 +371,15 @@ h4{
   padding: 3%;
   width: 150px;
   outline: 0px;
-  border: 2px solid #008000;
+  border: 2px solid #eb7272;
   border-radius: 6px;
   font-weight: bold;
   color: #000;
-  background-color: #11e63f;
+  background-color: #eb7272;
   transition: 0.2s ease-in-out;
 }
 .add_driver button:hover {
-  background-color: #008000;
+  background-color: #d45050;
   color: #fff;
 }
 .driver_table tr th {
