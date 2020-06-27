@@ -395,6 +395,7 @@ h4{
 }
 .driver_table td i:hover {
   color: rgb(236, 171, 30);
+  cursor: pointer;
 }
 .driver_table td .driver_pic {
   width: 80px;
@@ -407,12 +408,13 @@ h4{
 /* ////////////////////////////////////////////////////////////////CONTACT US CSS////////////////////////////////////////////////////////////// */
 
 .contact_us_heading {
+  word-spacing: 5px;
   margin: 3% 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: bold;
   text-align: center;
   text-transform: capitalize;
-  color: #ad3a3a;
+  color: #d45050;
 }
 .contact_us {
   margin-top: 5%;
@@ -432,7 +434,7 @@ h4{
 .contact_details div h3 {
   font-size: 25px;
   text-transform: capitalize;
-  color: #ad3a3a;
+  color: #d45050;
 }
 .message {
   padding: 3% 5%;
