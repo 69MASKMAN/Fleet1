@@ -9,19 +9,19 @@
     <form method="POST" action="/my_drivers">
         <div class="form-row">
             <div class="col-md-2 mt-4">
-              <input type="text" class="form-control" placeholder="First name">
+              <input type="text" class="form-control" name="firstName" placeholder="Name">
             </div>
             <div class="col-md-2 mt-4">
-              <input type="tel" class="form-control" placeholder="Phone No.">
+              <input type="tel" class="form-control" name="phoneNo" placeholder="Phone No.">
             </div>
             <div class="col-md-2 mt-4">
-                <input type="number" class="form-control" placeholder="Licence No.">
+                <input type="number" class="form-control"  name="licenceNo" placeholder="Licence No.">
             </div>
             <div class="col-md-2 mt-4">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" class="form-control" name="email" placeholder="Email">
             </div>
             <div class="col-md-2 mt-4">
-                <textarea class="form-control" placeholder="Address"></textarea>
+                <textarea class="form-control" name="address" placeholder="Address"></textarea>
             </div>
             <div class="col-md-2 mt-4">
                 <button type="submit">Add driver</button>
@@ -46,72 +46,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th class="index" scope="row">1</th>
-            <td><img class="driver_pic" src="images/dp.jpeg"></td>
-            <td>23-09-2018</td>
-            <td>Marina</td>
-            <td>2279 346 129</td>
-            <td>WB0297 D08</td>
-            <td>marina32gmail.com</td>
-            <td> wellstreet, London</td>
-            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+      <%    var i = 1;                             %>
+      <%    driverArray.forEach( (driver) => {     %>
+
+      <%       if(i%2 !== 0){                      %>
+                 <tr>
+      <%       } else {                            %>
+                <tr class="table-danger">
+      <%       }                                  %>
+
+              <th class="index" scope="row"><%= i %></th>
+              <td><img class="driver_pic" src="images/dp.jpeg"></td>
+              <td> <%=   driver.createdOn   %> </td>
+              <td> <%=   driver.firstName   %> </td>
+              <td> <%=   driver.contactNumber     %></td>
+              <td> <%=   driver.licenceNo   %></td>
+              <td> <%=   driver.email       %></td>
+              <td> <%=   driver.address     %></td>
+              <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
           </tr>
-          <tr class="table-danger">
-            <th class="index" scope="row">2</th>
-            <td><img class="driver_pic" src="images/billing.jpg"></td>
-            <td>23-09-2018</td>
-            <td>Peter</td>
-            <td>2259 346 183</td>
-            <td>WB0297 D08</td>
-            <td>peter323gmail.com</td>
-            <td>pinkcity,Rajasthan, India</td>
-            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
-          </tr>
-          <tr>
-            <th class="index" scope="row">3</th>
-            <td><img class="driver_pic" src="images/dp.jpeg"></td>
-            <td>23-09-2018</td>
-            <td>Angela</td>
-            <td>8834 912 345</td>
-            <td>WB0297 D08</td>
-            <td>angela0234gmail.com</td>
-            <td>23 wellstreet, London</td>
-            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
-          </tr>
-          <tr class="table-danger">
-            <th class="index" scope="row">4</th>
-            <td><img class="driver_pic" src="images/billing.jpg"></td>
-            <td>23-09-2018</td>
-            <td>Johans latherin</td>
-            <td>2279 346 129</td>
-            <td>WB0297 D08</td>
-            <td>johsns352gmail.com</td>
-            <td>23 wellstreet, London</td>
-            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
-          </tr>
-          <tr>
-            <th class="index" scope="row">5</th>
-            <td><img class="driver_pic" src="images/dp.jpeg"></td>
-            <td>23-09-2018</td>
-            <td>Jack andrew</td>
-            <td>2279 346 129</td>
-            <td>we98097 D08</td>
-            <td>marinalathrin32gmail.com</td>
-            <td>23 Megastreet, London</td>
-            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
-          </tr>
-          <tr class="table-danger">
-            <th class="index" scope="row">6</th>
-            <td><img class="driver_pic" src="images/dp.jpeg"></td>
-            <td>23-09-2018</td>
-            <td>Peter</td>
-            <td>2279 346 129</td>
-            <td>WB0297 D08</td>
-            <td>petr54%gmail.com</td>
-            <td>23 wellstreet, London</td>
-            <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
-          </tr>
+
+      <%    i++;                                   %>
+      <%    });                                    %>
+
         </tbody>
       </table>
 </div>
