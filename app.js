@@ -67,6 +67,7 @@ app.use(bodyParser.urlencoded({
 //-------- Global variable ------------------//
 //------ For Reading driver List ------------//
 var my_driver = [];
+var userID;
 
 
 //------------   Handling all the get request ---------------//
@@ -116,6 +117,10 @@ app.get("/signup1", (req, res) => {
 //-------- Route for MY_Drivers after User_page
 app.get('/my_drivers', (req, res) => {
 
+
+
+
+
     res.render('my_drivers', {
       driverArray : my_driver
     });
@@ -143,7 +148,7 @@ app.post("/login", (req, res) => {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log(user.uid);
-      var userID = user.uid;
+      userID = user.uid;
 
 
       //reading data from the database
@@ -267,6 +272,8 @@ app.post('/signout', (req, res) => {
 
  //clearing the array
   my_driver = [];
+ //clearing the userID
+ userID = null;
 
   //sign out the user
   auth.signOut();
@@ -275,7 +282,6 @@ app.post('/signout', (req, res) => {
 
 //------- POST Request for storing the driver data -------------------------------------//
 
-var driver_id = 1;
 app.post('/my_drivers', (req, res) => {
 
   //this function gets triggered automatically
@@ -299,11 +305,12 @@ app.post('/my_drivers', (req, res) => {
         email: req.body.email
       });
 
-
-    } else {
+  } else {
       // No user is signed in.
       console.log("no");
     }
+
+
   });
 
   res.redirect('/my_drivers');
