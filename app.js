@@ -180,7 +180,7 @@ app.post("/login", (req, res) => {
 
 
       }, function(error) {
-        res.status().send()
+        console.log("Error: " + error.code);
       });
 
     } else {
@@ -216,7 +216,7 @@ app.post('/signup', (req, res) => {
     } else {
       console.log(errorMessage);
     }
-    res.status().send(error)
+    console.log(error);
   });
 
 
