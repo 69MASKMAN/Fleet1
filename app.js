@@ -22,6 +22,8 @@ const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
+
+
 //----------  TODO: Replace the following with your app's Firebase project configuration -------//
 //----------  Your web app's Firebase configuration   ------------------------------------------//
 var firebaseConfig = {
@@ -53,6 +55,7 @@ const express = require('express');
 const ejs = require('ejs');
 const path = require('path')
 const bodyParser = require('body-parser');
+const sgMail = require('@sendgrid/mail');
 
 
 //--------  Inclusion of features  ---------//
@@ -68,6 +71,7 @@ app.use(bodyParser.urlencoded({
 //------ For Reading driver List ------------//
 var my_driver = [];
 var userID;
+var email;
 
 
 //------------   Handling all the get request ---------------//
@@ -118,9 +122,6 @@ app.get("/signup1", (req, res) => {
 app.get('/my_drivers', (req, res) => {
 
 
-
-
-
     res.render('my_drivers', {
       driverArray : my_driver
     });
@@ -138,57 +139,11 @@ app.get('/contact_us', (req, res) => {
 
 app.post("/login", (req, res) => {
 
-  var email = req.body.username;
+      email = req.body.username;
   var password = req.body.password;
 
   const promise = auth.signInWithEmailAndPassword(email, password);
   promise.catch(e => alert(e.message));
-
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log(user.uid);
-      userID = user.uid;
-
-
-      //reading data from the database
-      db.ref(userID + '/driver').on("value", function(snapshot) {
-
-        //making it empty for every user
-         my_driver = [];
-
-        snapshot.forEach(function(snapshotVal) {
-
-          //creating a obj of a driver
-          var new_driver = {
-            key: snapshotVal.key,
-            firstName: snapshotVal.val().firstName,
-            createdOn: snapshotVal.val().createdOn,
-            contactNumber: snapshotVal.val().contactNumber,
-            licenceNo: snapshotVal.val().licenceNo,
-            email: snapshotVal.val().email,
-            address : snapshotVal.val().address
-          }
-
-          //adding the driver in the array
-          my_driver.push(new_driver);
-        });
-
-        for (var i = 0; i < my_driver.length; i++) {
-          console.log(my_driver[i].firstName);
-        }
-
-
-      }, function(error) {
-        console.log("Error: " + error.code);
-      });
-
-    } else {
-      console.log("No");
-
-    }
-  });
-
 
 
 
@@ -201,8 +156,9 @@ app.post("/login", (req, res) => {
 
 app.post('/signup', (req, res) => {
 
-  var email = req.body.username;
+     email = req.body.username;
   var password = req.body.password;
+  var company = req.body.companyName;
 
   // Create user with email and pass.
   // [START createUserwithemail]
@@ -214,35 +170,30 @@ app.post('/signup', (req, res) => {
     if (errorCode == 'auth/weak-password') {
       console.log('The password is too weak.');
     } else {
-      console.log(errorMessage);
+      console.log("Hello1" + errorMessage);
     }
-    console.log(error);
+    console.log("Hello2" + error);
   });
 
+  //Removing the . from Email
+  var updatedEmail = "";
+  for(var i=0;i<email.length;i++){
 
+     if(email[i] === '.'){
+       continue;
+     }
+     updatedEmail = updatedEmail + email[i];
+  }
 
-  //this function gets triggered automatically
-  //whenever there is a change
-  //For getting user UID
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      console.log(user.uid);
-      var userID = user.uid;
+  console.log(updatedEmail);
 
-      //storing company in the database
-      db.ref(userID).set({
-        email: req.body.username,
-        contactDetail: req.body.contactDetails,
-        companyName: req.body.companyName
-      });
+   //making custom routes during registering
+   //storing company in the database
+       db.ref(updatedEmail).set({
+         contactDetail: req.body.contactDetails,
+         companyName: req.body.companyName
+       });
 
-
-    } else {
-      // No user is signed in.
-      console.log("no");
-    }
-  });
 
   res.redirect('/user_page');
 
@@ -253,7 +204,7 @@ app.post('/signup', (req, res) => {
 
 app.post('/admin_login1', (req, res) => {
 
-  var email = req.body.username;
+       email = req.body.username;
   var password = req.body.password;
 
   console.log(email);
@@ -281,39 +232,62 @@ app.post('/signout', (req, res) => {
 });
 
 //------- POST Request for storing the driver data -------------------------------------//
-
+var flag = 0;
 app.post('/my_drivers', (req, res) => {
 
-  //this function gets triggered automatically
-  //whenever there is a change
-  //For getting user UID
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      console.log(user.uid);
-      userID = user.uid;
+     var driverEmail = req.body.email;
+     //updating driverEmail
+     var updateDriverEmail = "";
+     for(var i=0;i<driverEmail.length;i++){
 
-      //Adding the driver in the company list
+       if(driverEmail[i] === '.'){
+         continue;
+       }
+       updateDriverEmail = updateDriverEmail + driverEmail[i];
+     }
+
+     var day = new Date();
+
+     email = req.body.email;
+     var password = "_hacker"+day.getDay()+day.getMonth()+day.getFullYear();
+     console.log(password);
+
+     //sending credentials to the driver's Email
+     // using Twilio SendGrid's v3 Node.js Library
+     // https://github.com/sendgrid/sendgrid-nodejs
+     sgMail.setApiKey('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');
+     const msg = {
+       to: email,
+       from: 'Aadarshsah02@gmail.com',
+       subject: 'Sending with Twilio SendGrid is Fun',
+       text: 'Hello!',
+       html: '<strong>Your Password :</strong><br/><p>'+ password +'</p>',
+     };
+     sgMail.send(msg);
+
+
+     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+       // Handle Errors here.
+       var errorCode = error.code;
+       var errorMessage = error.message;
+      });
+
+
+     //Adding the driver in the company list
       var day = new Date();
 
-      db.ref(userID + '/driver').push({
+      db.ref('/drivers/' + updateDriverEmail).set({
         firstName: req.body.firstName,
         createdOn: day.getDay() + "/" + day.getMonth() + "/" + day.getFullYear(),
         contactNumber: req.body.phoneNo,
         licenceNo: req.body.licenceNo,
         address: req.body.address,
-        email: req.body.email
+        email : req.body.email
       });
 
-  } else {
-      // No user is signed in.
-      console.log("no");
-    }
-
-
-  });
 
   res.redirect('/my_drivers');
+
 });
 
 
