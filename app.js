@@ -199,7 +199,8 @@ app.get('/my_drivers', (req, res) => {
       });
 
       res.render('my_drivers', {
-        driverArray : my_driver
+        driverArray : my_driver,
+        message : flag
       });
   });
 
@@ -242,7 +243,6 @@ app.get('/delete_driver/:driverEmail', (req,res)=>{
                      email: driver.email,
                      address : driver.address
                    }
-
                    //adding the driver in the array
                    my_driver.push(new_driver);
 
@@ -395,6 +395,7 @@ app.post('/my_drivers', (req, res) => {
      var day = new Date();
 
      var password = "_hacker"+day.getDay()+day.getMonth()+day.getFullYear();
+     console.log(driverEmail);
      console.log(password);
 
      //sending credentials to the driver's Email
@@ -416,6 +417,15 @@ app.post('/my_drivers', (req, res) => {
        var errorCode = error.code;
        var errorMessage = error.message;
       });
+
+
+      //Check whether any field is empty or not
+      if(req.body.firstName === ""  || req.body.phoneNo === ""  || req.body.licenceNo === ""  ||
+          req.body.address === ""  ||  req.body.email === "" ){
+
+                 res.redirect('/my_drivers');
+                 flag = true;
+          } else {
 
 
      //Adding the driver in the company list
@@ -443,10 +453,8 @@ app.post('/my_drivers', (req, res) => {
       });
 
       newDriver.save();
-
-
-
-  res.redirect('/my_drivers');
+      res.redirect('/my_drivers');
+    }
 
 });
 
