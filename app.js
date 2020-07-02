@@ -214,13 +214,33 @@ app.get('/contact_us', (req, res) => {
 app.get('/delete_driver/:driverEmail', (req,res)=>{
 
 
+      //deleting driver record from mongo database
       Driver.deleteOne( { email : req.params.driverEmail }, function (err) {
 
         if(err) console.log(err);
         console.log("Successful deletion");
 
-   });
+     });
 
+
+    //deleting driver record from realtime firebase database
+    var driverE = req.params.driverEmail;
+
+    //Removing the . from Email
+    var updatedEmail = "";
+    for(var i=0;i<driverE.length;i++){
+
+       if(driverE[i] === '.'){
+         continue;
+       }
+       updatedEmail = updatedEmail + driverE[i];
+    }
+    console.log(updatedEmail);
+    db.ref('/drivers/' + updatedEmail).remove();
+
+
+
+   //providing 3 seconds delay so that DataBase can get updated
    setTimeout(function(){
 
      my_driver = [];
