@@ -9,7 +9,7 @@
                    <div class="cross_bar"><i class="fas fa-times" id="cross"></i></div>
                   <div class="dp"> <img src="images/dp.jpeg"></div>
                   <hr class="line"><br>
-                  <h1>Angela johnson</h1><br>
+                  <h1>   <%=  companyName   %> </h1><br>
                   <hr class="line"><br />
                     <div class="location-message"> </div><br />
                   <form class="admin-style" action="/signout" method="post">
@@ -27,9 +27,13 @@
                                    <div class="card-body">
                                        <h4>UPDATE PROFILE</h4>
                                        <p>
-                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                         Deserunt necessitatibus quasi sit! Ducimus,
-                                         nobis suscipit quasi sequi officiis facilis voluptatem!
+                                        <b>Name</b>   : <%=  companyName    %>
+                                       </p>
+                                       <p>
+                                        <b>Email</b>   : <%=  companyEmail  %>
+                                       </p>
+                                       <p>
+                                        <b>Contact</b> : <%=  companyContact  %>
                                        </p>
                                    </div>
 
