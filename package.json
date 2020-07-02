@@ -10,12 +10,14 @@
   "author": "Aadarsh Kumar & Asif Khan & Nititsh Mishra & Ashutosh Kumar",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.3",
     "express": "^4.17.1",
     "firebase": "^7.15.1",
     "firebase-admin": "^8.12.1",
+    "mongoose": "^5.9.20",
     "nodemon": "^2.0.3",
     "path": "^0.12.7"
   }
