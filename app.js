@@ -210,6 +210,54 @@ app.get('/contact_us', (req, res) => {
   res.render('contact_us');
 });
 
+app.get('/delete_driver/:driverEmail', (req,res)=>{
+
+
+      Driver.deleteOne( { email : req.params.driverEmail }, function (err) {
+
+        if(err) console.log(err);
+        console.log("Successful deletion");
+
+   });
+
+   setTimeout(function(){
+
+     my_driver = [];
+     Driver.find( {}, function(err,drivers){
+
+         drivers.forEach( (driver)=>{
+
+           if(driver.companyEmail !== email ){
+             return;
+           }
+
+           console.log(driver.firstName);
+
+           //creating a obj of a driver
+                   var new_driver = {
+                     firstName: driver.firstName,
+                     createdOn: driver.createdOn,
+                     contactNumber: driver.contactNumber,
+                     licenceNo: driver.licenceNo,
+                     email: driver.email,
+                     address : driver.address
+                   }
+
+                   //adding the driver in the array
+                   my_driver.push(new_driver);
+
+         });
+
+         res.render('my_drivers', {
+           driverArray : my_driver
+         });
+     });
+
+    }, 3000);
+
+
+});
+
 //--------- Handling all the post request ---------------------------------------------------//
 
 //---------    POST Request For Login method ------------------------------------------------//
