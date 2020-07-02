@@ -34,7 +34,7 @@
       <table class="table">
         <thead class=" bg-danger text-white">
           <tr>
-            <th scope="col">D id</th>
+            <th scope="col">S No.</th>
             <th scope="col"> Image</th>
             <th scope="col">Created on</th>
             <th scope="col">Name</th>
@@ -63,7 +63,11 @@
               <td> <%=   driver.licenceNo   %></td>
               <td> <%=   driver.email       %></td>
               <td> <%=   driver.address     %></td>
-              <td class="text-danger"><i class="fa fa-trash-alt"></i></td>
+              <td >
+                <a class="my_link" href="/delete_driver/<%= driver.email %>" >
+                 <i class="fa fa-trash-alt text-danger"></i>
+                </a>
+              </td>
           </tr>
 
       <%    i++;                                   %>
