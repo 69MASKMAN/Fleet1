@@ -16,9 +16,6 @@
     <!-- Favicon -->
     <link rel="icon" href="images/favicon.png">
 
-    <!-- firebase javascript SDK -->
-
-
     <title>User Login</title>
 
   </head>
@@ -43,6 +40,10 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
           <br />
           <a href="/signup1"><button type="button" class="btn btn-lg btn-primary login-button">New User -> SignUp</button></a>
+          <br /><br />
+          <p>
+            *incase of invalid credentials you will be redirected here!
+          </p>
         </form>
 
       </div>
@@ -74,32 +75,6 @@
 
     </div>
   </div>
-
-
-   <!-- including the firebase SDK -->
-   <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyAQHHxaZEyU99Q4DUvFqW5iuP2iZBiIkkA",
-    authDomain: "fir-basics-539e4.firebaseapp.com",
-    databaseURL: "https://fir-basics-539e4.firebaseio.com",
-    projectId: "fir-basics-539e4",
-    storageBucket: "fir-basics-539e4.appspot.com",
-    messagingSenderId: "143391606910",
-    appId: "1:143391606910:web:739b741d61c21eeb77302f",
-    measurementId: "G-G7739HHY88"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
-
 
 
 <%- include("partials/footer") -%>
