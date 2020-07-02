@@ -56,6 +56,40 @@ const ejs = require('ejs');
 const path = require('path')
 const bodyParser = require('body-parser');
 const sgMail = require('@sendgrid/mail');
+const mongoose = require('mongoose');
+
+
+//---------- Mongoose DataBase model Creation ------------------------------------//
+
+//connecting to the database
+mongoose.connect("mongodb+srv://admin:admin_hacker@cluster0.dxaot.mongodb.net/companyDB", {useNewUrlParser : true, useUnifiedTopology:true});
+//for removing deprication error
+mongoose.set("useCreateIndex", true);
+
+//Schema creation
+const companySchema = new mongoose.Schema({
+  companyName : String,
+  companyEmail : String,
+  contactDetail : Number,
+  companyAddress : String
+});
+
+const driverSchema = new mongoose.Schema({
+  firstName: String,
+  createdOn: String,
+  contactNumber: String,
+  licenceNo: String,
+  address: String,
+  email : String,
+  companyEmail : String
+});
+
+//model creation
+const Company = mongoose.model("Company", companySchema);
+const Driver = mongoose.model("Driver", driverSchema);
+
+//-------------------------------------------------------------------------------//
+
 
 
 //--------  Inclusion of features  ---------//
@@ -72,6 +106,7 @@ app.use(bodyParser.urlencoded({
 var my_driver = [];
 var userID;
 var email;
+var flag = false;
 
 
 //------------   Handling all the get request ---------------//
@@ -90,7 +125,9 @@ app.get("/login", (req, res) => {
 
 //------------ Route for User Login --------------------------//
 app.get("/user_login1", (req, res) => {
-  res.render("user_login1");
+  res.render("user_login1",{
+    message : flag
+  });
 });
 
 
@@ -108,7 +145,21 @@ app.get('/admin_page', (req, res) => {
 
 //----------- Route for User Page after Login -----------------//
 app.get('/user_page', (req, res) => {
-  res.render('user_page');
+
+  //Reading essential information from mongo DataBase
+  Company.find( {"companyEmail" : email }, function(err,company){
+
+
+      console.log(company[0].companyName);
+
+      res.render('user_page', {
+        companyName : company[0].companyName,
+        companyEmail : company[0].companyEmail,
+        companyContact : company[0].contactDetail
+      });
+
+  });
+
 });
 
 
@@ -121,10 +172,36 @@ app.get("/signup1", (req, res) => {
 //-------- Route for MY_Drivers after User_page
 app.get('/my_drivers', (req, res) => {
 
+  my_driver = [];
+  Driver.find( {}, function(err,drivers){
 
-    res.render('my_drivers', {
-      driverArray : my_driver
-    });
+      drivers.forEach( (driver)=>{
+
+        if(driver.companyEmail !== email ){
+          return;
+        }
+
+        console.log(driver.firstName);
+
+        //creating a obj of a driver
+                var new_driver = {
+                  firstName: driver.firstName,
+                  createdOn: driver.createdOn,
+                  contactNumber: driver.contactNumber,
+                  licenceNo: driver.licenceNo,
+                  email: driver.email,
+                  address : driver.address
+                }
+
+                //adding the driver in the array
+                my_driver.push(new_driver);
+
+      });
+
+      res.render('my_drivers', {
+        driverArray : my_driver
+      });
+  });
 
 });
 
@@ -139,24 +216,37 @@ app.get('/contact_us', (req, res) => {
 
 app.post("/login", (req, res) => {
 
-      email = req.body.username;
+  email = req.body.username;
   var password = req.body.password;
 
-  const promise = auth.signInWithEmailAndPassword(email, password);
-  promise.catch(e => alert(e.message));
+ //checking whether the user is registered OR not
+  Company.find( {"companyEmail" : email}, function(err,company){
 
+      if(company.length === 0){
+        console.log("User Not found");
+        flag = true;
+        res.redirect('/user_login1');
+      } else {
 
+      console.log(company);
 
-  res.redirect('/user_page');
+      const promise = auth.signInWithEmailAndPassword(email, password);
+      promise.catch(e => alert(e.message));
+
+      res.redirect('/user_page');
+      console.log("User Found");
+    }
+
+  });
 
 });
 
 
-//---------    POST Request For Signup method -------------------------------------------//
+//--------------------------------    POST Request For Signup method -------------------------------------------//
 
 app.post('/signup', (req, res) => {
 
-     email = req.body.username;
+  email = req.body.username;
   var password = req.body.password;
   var company = req.body.companyName;
 
@@ -188,11 +278,22 @@ app.post('/signup', (req, res) => {
   console.log(updatedEmail);
 
    //making custom routes during registering
-   //storing company in the database
+   //storing company in the firebase database
        db.ref(updatedEmail).set({
          contactDetail: req.body.contactDetails,
          companyName: req.body.companyName
        });
+
+
+       //storing company data in the mongo database
+       var newCompany = new Company({
+          companyName : req.body.companyName,
+          contactDetail : req.body.contactDetails,
+          companyEmail : req.body.username,
+          companyAddress : "null"
+       });
+      //saving into the database
+       newCompany.save();
 
 
   res.redirect('/user_page');
@@ -200,7 +301,7 @@ app.post('/signup', (req, res) => {
 });
 
 
-//---------    POST Request For Admin Route ---------------------------------------------//
+//------------------------------------    POST Request For Admin Route ---------------------------------------------//
 
 app.post('/admin_login1', (req, res) => {
 
@@ -223,16 +324,13 @@ app.post('/signout', (req, res) => {
 
  //clearing the array
   my_driver = [];
- //clearing the userID
- userID = null;
 
   //sign out the user
   auth.signOut();
   res.redirect('/');
 });
 
-//------- POST Request for storing the driver data -------------------------------------//
-var flag = 0;
+//-------------------- POST Request for storing the driver data -------------------------------------//
 app.post('/my_drivers', (req, res) => {
 
      var driverEmail = req.body.email;
@@ -248,7 +346,6 @@ app.post('/my_drivers', (req, res) => {
 
      var day = new Date();
 
-     email = req.body.email;
      var password = "_hacker"+day.getDay()+day.getMonth()+day.getFullYear();
      console.log(password);
 
@@ -257,16 +354,16 @@ app.post('/my_drivers', (req, res) => {
      // https://github.com/sendgrid/sendgrid-nodejs
      sgMail.setApiKey('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');
      const msg = {
-       to: email,
+       to: driverEmail,
        from: 'Aadarshsah02@gmail.com',
-       subject: 'Sending with Twilio SendGrid is Fun',
+       subject: 'credentials : OBD Solutions',
        text: 'Hello!',
-       html: '<strong>Your Password :</strong><br/><p>'+ password +'</p>',
+       html: '<strong>Your Password :</strong><p>'+ password +'</p>'+'<br/>Username will be your registered Email-id',
      };
      sgMail.send(msg);
 
 
-     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+     firebase.auth().createUserWithEmailAndPassword(driverEmail, password).catch(function(error) {
        // Handle Errors here.
        var errorCode = error.code;
        var errorMessage = error.message;
@@ -284,6 +381,21 @@ app.post('/my_drivers', (req, res) => {
         address: req.body.address,
         email : req.body.email
       });
+
+
+      //storing data in the mongo database
+      const newDriver = new Driver({
+        firstName: req.body.firstName,
+        createdOn: day.getDay() + "/" + day.getMonth() + "/" + day.getFullYear(),
+        contactNumber: req.body.phoneNo,
+        licenceNo: req.body.licenceNo,
+        address: req.body.address,
+        email : req.body.email,
+        companyEmail : email
+      });
+
+      newDriver.save();
+
 
 
   res.redirect('/my_drivers');
