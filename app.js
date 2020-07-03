@@ -424,7 +424,7 @@ app.post('/my_drivers', (req, res) => {
      sgMail.setApiKey('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');
      const msg = {
        to: driverEmail,
-       from: 'Aadarshsah02@gmail.com',
+       from: 'aadarshsah02@gmail.com',
        subject: 'credentials : OBD Solutions',
        text: 'Hello!',
        html: '<strong>Your Password :</strong><p>'+ password +'</p>'+'<br/>Username will be your registered Email-id',
