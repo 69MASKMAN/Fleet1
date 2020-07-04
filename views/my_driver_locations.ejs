@@ -1,0 +1,50 @@
+<%- include("partials/header") -%>
+           <title>Live Tracking</title>
+         </head>
+       <body>
+
+         <div class="add_driver">
+             <h2>Live Locations</h2>
+         </div>
+
+         <br />
+
+         <div class="driver_table">
+               <table class="table">
+                 <thead class=" bg-danger text-white">
+                   <tr>
+                     <th scope="col">S No.</th>
+                     <th scope="col"> Image</th>
+                     <th scope="col">Name</th>
+                     <th scope="col">Phone No.</th>
+                     <th scope="col">Location</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <% var i = 1;                                    %>
+                   <%  for(var j=0;j<userDriverArray.length;j++){   %>
+
+                   <%       if(i%2 !== 0){                          %>
+                              <tr>
+                   <%       } else {                                %>
+                             <tr class="table-danger">
+                   <%       }                                        %>
+
+                           <th class="index" scope="row"><%= i %></th>
+                           <td><img class="driver_pic" src="images/dp.jpeg"></td>
+                           <td> <%=   userDriverArray[j].firstName       %> </td>
+                           <td> <%=   userDriverArray[j].contactNumber   %></td>
+                           <td >
+                             <a class="my_link_location" href="/get_driver_location/<%= userDriverArray[j].email %>" >
+                              <i class="fas fa-search-location text-danger fa-3x"></i>
+                             </a>
+                           </td>
+                       </tr>
+                   <%    i++;                                   %>
+                   <%    }                                      %>
+                 </tbody>
+               </table>
+         </div>
+
+
+<%- include("partials/footer") -%>
