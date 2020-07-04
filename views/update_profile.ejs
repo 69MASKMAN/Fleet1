@@ -1,0 +1,27 @@
+<%- include("partials/header") -%>
+           <title>Update Profile</title>
+         </head>
+       <body>
+
+     <div class="user_update">
+        <form action="/update_profile" method="POST">
+            <img class="driver_dp mb-4" src="images/dp.jpeg" alt="" width="130" height="130">
+            <h1 class="h3 mb-3 font-weight-normal">Update your profile</h1>
+            <input type="text" name="company_name" class="form-control mb-3" placeholder="Company Name" required>
+            <input type="text" name="contact_no" class="form-control mb-3" placeholder="Contact No." required>
+            <input type="text" name="address" class="form-control mb-3" placeholder="Address" required>
+            <div class="form-row">
+                <div class="col">
+                    <button class="btn" type="submit">Update</button>
+                </div>
+            </div>
+          </form>
+          <br />
+          <div class="col">
+              <a  class="my_link" href="/user_page"><button class="btn">Cancel</button></a>
+          </div>
+     </div>
+
+
+
+<%- include("partials/footer") -%>
