@@ -57,6 +57,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const sgMail = require('@sendgrid/mail');
 const mongoose = require('mongoose');
+const axios = require('axios');
 
 
 //---------- Mongoose DataBase model Creation ------------------------------------//
@@ -104,9 +105,25 @@ app.use(bodyParser.urlencoded({
 //-------- Global variable ------------------//
 //------ For Reading driver List ------------//
 var my_driver = [];
+var driver_place = [];
 var userID;
 var email;
 var flag = false;
+
+//----------- Global Function ----------------//
+function NewEmail(d_email){
+
+  var updatedEmail = "";
+
+  for(var i=0;i<d_email.length;i++){
+
+     if(d_email[i] === '.'){
+       continue;
+     }
+     updatedEmail = updatedEmail + d_email[i];
+  }
+  return updatedEmail;
+}
 
 
 //------------   Handling all the get request ---------------//
@@ -156,10 +173,8 @@ app.get('/user_page', (req, res) => {
         companyName : company[0].companyName,
         companyEmail : company[0].companyEmail,
         companyContact : company[0].contactDetail
-      });
-
+    });
   });
-
 });
 
 
@@ -195,10 +210,9 @@ app.get('/my_drivers', (req, res) => {
 
                 //adding the driver in the array
                 my_driver.push(new_driver);
+         });
 
-      });
-
-      res.render('my_drivers', {
+        res.render('my_drivers', {
         driverArray : my_driver,
         message : flag
       });
@@ -210,6 +224,9 @@ app.get('/my_drivers', (req, res) => {
 app.get('/contact_us', (req, res) => {
   res.render('contact_us');
 });
+
+
+//--------- Route for deleting the driver -----------------------//
 
 app.get('/delete_driver/:driverEmail', (req,res)=>{
 
@@ -227,14 +244,8 @@ app.get('/delete_driver/:driverEmail', (req,res)=>{
     var driverE = req.params.driverEmail;
 
     //Removing the . from Email
-    var updatedEmail = "";
-    for(var i=0;i<driverE.length;i++){
+    var updatedEmail = NewEmail(driverE);
 
-       if(driverE[i] === '.'){
-         continue;
-       }
-       updatedEmail = updatedEmail + driverE[i];
-    }
     console.log(updatedEmail);
     db.ref('/drivers/' + updatedEmail).remove();
 
@@ -278,6 +289,117 @@ app.get('/delete_driver/:driverEmail', (req,res)=>{
 
 });
 
+//---------- Get Request for getting place of the driver -----------//
+app.get('/get_driver_location/:driverEmail', (req,res)=>{
+
+      //make an API Call to get the Location
+      var updatedEmail = "";
+      var d_mail = req.params.driverEmail;
+
+      //Removing the . from Email
+      updatedEmail = NewEmail(d_mail);
+
+       console.log(updatedEmail);
+      //reading location from firebase of particular driver
+      //reading data from the database
+         db.ref('/drivers/'+updatedEmail+'/location').on("value", function(snapshot) {
+
+           console.log("Value "+snapshot.val());
+
+           if( snapshot.val() === null ){
+             res.render('not_found');
+           } else {
+
+             snapshot.forEach(function(snapshotVal) {
+
+                      driver_location = {
+                       lat : snapshotVal.val().latitude,
+                       long : snapshotVal.val().longitude
+                     }
+
+                   });
+
+                   //now using location make a API Call to get Location
+                   console.log(driver_location.lat);
+                   console.log(driver_location.long);
+                   axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+driver_location.lat+'&longitude='+driver_location.long+'&localityLanguage=en#')
+                  .then(response => {
+
+                      console.log("Country  : "+response.data.localityInfo.administrative[0].name);
+                      console.log("State    : "+response.data.localityInfo.administrative[1].name);
+                      console.log("District : "+response.data.localityInfo.administrative[2].name);
+                      console.log("Place    : "+response.data.localityInfo.administrative[3].name);
+
+                      var driverPlace = {
+                        Country : response.data.localityInfo.administrative[0].name,
+                        State : response.data.localityInfo.administrative[1].name,
+                        District : response.data.localityInfo.administrative[2].name,
+                        Place : response.data.localityInfo.administrative[3].name
+                      }
+
+                      //as soon as we got the response of api Call
+                      res.render('driver_page',{
+                        driverPlaceData : driverPlace
+                      });
+
+
+                      })
+                      .catch(error => {
+                      console.log(error);
+                    });
+
+
+
+           }
+
+
+
+         }, function(error) {
+           console.log("Error: " + error.code);
+    });
+
+
+});
+
+
+//------------------ GET Request for update profile page -------------------//
+app.get('/update_profile', (req,res)=>{
+   res.render('update_profile');
+});
+
+//----------------------- GET Request for LIVE Driver Tracking ----------------------------//
+
+app.get('/my_driver_locations', (req,res)=>{
+
+  my_driver = [];
+  Driver.find( {}, function(err,drivers){
+
+      drivers.forEach( (driver)=>{
+
+        if(driver.companyEmail !== email ){
+          return;
+        }
+
+        console.log(driver.firstName);
+
+        //creating a obj of a driver
+                var new_driver = {
+                  firstName: driver.firstName,
+                  contactNumber: driver.contactNumber,
+                  email: driver.email
+                }
+
+                //adding the driver in the array
+                my_driver.push(new_driver);
+         });
+
+        res.render('my_driver_locations', {
+        userDriverArray : my_driver
+      });
+  });
+
+});            //get request ends
+
 //--------- Handling all the post request ---------------------------------------------------//
 
 //---------    POST Request For Login method ------------------------------------------------//
@@ -307,6 +429,35 @@ app.post("/login", (req, res) => {
 
   });
 
+
+  //--------------------------------------------//
+  my_driver = [];
+  Driver.find( {}, function(err,drivers){
+
+      drivers.forEach( (driver)=>{
+
+        if(driver.companyEmail !== email ){
+          return;
+        }
+
+        console.log(driver.firstName);
+
+        //creating a obj of a driver
+                var new_driver = {
+                  firstName: driver.firstName,
+                  createdOn: driver.createdOn,
+                  contactNumber: driver.contactNumber,
+                  licenceNo: driver.licenceNo,
+                  email: driver.email,
+                  address : driver.address
+                }
+
+                //adding the driver in the array
+                my_driver.push(new_driver);
+         });
+      });
+
+
 });
 
 
@@ -334,14 +485,7 @@ app.post('/signup', (req, res) => {
   });
 
   //Removing the . from Email
-  var updatedEmail = "";
-  for(var i=0;i<email.length;i++){
-
-     if(email[i] === '.'){
-       continue;
-     }
-     updatedEmail = updatedEmail + email[i];
-  }
+  var updatedEmail = NewEmail(email);
 
   console.log(updatedEmail);
 
@@ -392,6 +536,7 @@ app.post('/signout', (req, res) => {
 
  //clearing the array
   my_driver = [];
+  driver_place = [];
 
   //sign out the user
   auth.signOut();
@@ -402,15 +547,9 @@ app.post('/signout', (req, res) => {
 app.post('/my_drivers', (req, res) => {
 
      var driverEmail = req.body.email;
-     //updating driverEmail
-     var updateDriverEmail = "";
-     for(var i=0;i<driverEmail.length;i++){
 
-       if(driverEmail[i] === '.'){
-         continue;
-       }
-       updateDriverEmail = updateDriverEmail + driverEmail[i];
-     }
+     //Removing the . from Email
+     var updateDriverEmail = NewEmail(req.body.email);
 
      var day = new Date();
 
@@ -418,19 +557,33 @@ app.post('/my_drivers', (req, res) => {
      console.log(driverEmail);
      console.log(password);
 
-     //sending credentials to the driver's Email
-     // using Twilio SendGrid's v3 Node.js Library
-     // https://github.com/sendgrid/sendgrid-nodejs
-     sgMail.setApiKey('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');
-     const msg = {
-       to: driverEmail,
-       from: 'aadarshsah02@gmail.com',
-       subject: 'credentials : OBD Solutions',
-       text: 'Hello!',
-       html: '<strong>Your Password :</strong><p>'+ password +'</p>'+'<br/>Username will be your registered Email-id',
-     };
-     sgMail.send(msg);
 
+     //sending email to the driverE
+     const nodemailer = require('nodemailer');
+     const { getMaxListeners } = require('process');
+     const transporter = nodemailer.createTransport({
+       service: 'gmail',
+       auth: {
+         user: 'solutionobd@gmail.com',
+         pass: 'obdsolution@2020'
+       }
+      });
+
+      // email options
+let mailOptions = {
+    from:'solutionobd@gmail.com',
+    to: driverEmail,
+    subject:'OBD : Login credentials' ,
+    text:`Your Credentials : ${password} and email will be your registered email`
+  };
+
+    // send email
+      transporter.sendMail(mailOptions, (error, response) => {
+        if (error) {
+            console.log(error);
+        }
+          console.log(response)
+        });
 
      firebase.auth().createUserWithEmailAndPassword(driverEmail, password).catch(function(error) {
        // Handle Errors here.
@@ -460,7 +613,7 @@ app.post('/my_drivers', (req, res) => {
         email : req.body.email
       });
 
-
+      console.log(email);
       //storing data in the mongo database
       const newDriver = new Driver({
         firstName: req.body.firstName,
@@ -475,6 +628,27 @@ app.post('/my_drivers', (req, res) => {
       newDriver.save();
       res.redirect('/my_drivers');
     }
+
+});
+
+//---------- POST request for updating the user profile --------------------------------//
+app.post('/update_profile', (req,res)=>{
+
+   //Updating the mongo database
+   var myquery = { companyEmail: email };
+   var newvalues = { $set: { companyName : req.body.company_name , companyAddress : req.body.address , contactDetail : req.body.contact_no  } };
+   Company.updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("User Profile Updated");
+  });
+
+  //providing 3 seconds delay so that DataBase can get updated
+  setTimeout(function(){
+
+    res.redirect('user_page');
+
+   }, 3000);
+
 
 });
 
