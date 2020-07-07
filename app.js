@@ -5,7 +5,7 @@ Technology Stack : Front End ( HTML,CSS,BootStrap )
                    Back End ( Nodejs )
                    Database ( Firebase Realtime db, MongoDB db* )
 Developing Team : 1. Aadarsh Kumar Sah
-                  2. Nitish Mishra
+                  2. Nitish Kumar Mishra
                   3. Asif Khan
                   4. Ashutosh Kumar
 
@@ -415,7 +415,7 @@ app.post("/login", (req, res) => {
       if(company.length === 0){
         console.log("User Not found");
         flag = true;
-        res.redirect('/user_login1');
+        res.redirect('/user_login1', {errorMsg: "User Not found"});
       } else {
 
       console.log(company);
@@ -544,7 +544,26 @@ app.post('/signout', (req, res) => {
 });
 
 //-------------------- POST Request for storing the driver data -------------------------------------//
-app.post('/my_drivers', (req, res) => {
+// requiring multer..........
+const multer = require('multer')
+
+// multer middleware.........
+const storage = multer.diskStorage({
+  destination: function(req, file, call_back){
+      call_back(null, './public/driver_dp/')
+  },
+  filename: function(req, file, call_back) {
+      call_back(null, file.fieldname+ "_"+Date.now()+path.extname(file.originalname)  )
+  }
+})
+const upload = multer( { 
+  storage: storage,
+  limits: {
+      fileSize: 1024*1024*2
+  }
+})
+
+app.post('/my_drivers',  upload.single('driver_dp'), (req, res) => {
 
      var driverEmail = req.body.email;
 
@@ -558,7 +577,7 @@ app.post('/my_drivers', (req, res) => {
      console.log(password);
 
 
-     //sending email to the driverE
+     //sending email to the driver
      const nodemailer = require('nodemailer');
      const { getMaxListeners } = require('process');
      const transporter = nodemailer.createTransport({
@@ -610,7 +629,8 @@ let mailOptions = {
         contactNumber: req.body.phoneNo,
         licenceNo: req.body.licenceNo,
         address: req.body.address,
-        email : req.body.email
+        email : req.body.email,
+        driver_dp = req.file.filename
       });
 
       console.log(email);
