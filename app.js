@@ -630,7 +630,7 @@ let mailOptions = {
         licenceNo: req.body.licenceNo,
         address: req.body.address,
         email : req.body.email,
-        driver_dp = req.file.filename
+        driver_dp : req.file.filename
       });
 
       console.log(email);
