@@ -5,7 +5,7 @@ Technology Stack : Front End ( HTML,CSS,BootStrap )
                    Back End ( Nodejs )
                    Database ( Firebase Realtime db, MongoDB db* )
 Developing Team : 1. Aadarsh Kumar Sah
-                  2. Nitish Kumar Mishra
+                  2. Nitish Mishra
                   3. Asif Khan
                   4. Ashutosh Kumar
 
@@ -82,12 +82,23 @@ const driverSchema = new mongoose.Schema({
   licenceNo: String,
   address: String,
   email : String,
+  companyEmail : String,
+  driver_dp : String
+});
+
+const vehicleSchema = new mongoose.Schema({
+  modelName : String,
+  vehicleNumber : String,
+  pollutionLevel : String,
+  insuranceDetailsNo : String,
+  insuranceValidity : String,
   companyEmail : String
 });
 
 //model creation
 const Company = mongoose.model("Company", companySchema);
 const Driver = mongoose.model("Driver", driverSchema);
+const Vehicle = mongoose.model("Vehicle",vehicleSchema);
 
 //-------------------------------------------------------------------------------//
 
@@ -105,10 +116,14 @@ app.use(bodyParser.urlencoded({
 //-------- Global variable ------------------//
 //------ For Reading driver List ------------//
 var my_driver = [];
+var my_vehicles = [];
 var driver_place = [];
+var my_companies = [];
 var userID;
 var email;
 var flag = false;
+var vehicleFlag = false;
+console.log(flag);
 
 //----------- Global Function ----------------//
 function NewEmail(d_email){
@@ -145,12 +160,16 @@ app.get("/user_login1", (req, res) => {
   res.render("user_login1",{
     message : flag
   });
+  flag = false;
 });
 
 
 //----------- Route for Admin Login --------------------------//
 app.get("/admin_login1", (req, res) => {
-  res.render("admin_login1");
+   res.render('admin_login1',{
+     adminMessage : flag
+   });
+   flag = false;
 });
 
 
@@ -159,6 +178,54 @@ app.get('/admin_page', (req, res) => {
   res.render('admin_page');
 });
 
+//--------- Route for User MANAGEMENT -------------------------//
+app.get('/user_management',(req,res)=>{
+
+  my_companies = [];
+  Company.find( {}, function(err,company){
+
+     company.forEach( (instance)=>{
+
+       var count = 0;
+       var count1 = 0;
+
+       // Driver.find( { "companyEmail" : instance.companyEmail }, function(err,drivers){
+       //
+       //        drivers.forEach( (driver)=>{
+       //           count++;
+       //        });
+       // });
+       //
+       // Vehicle.find( { "companyEmail" : instance.companyEmail }, function(err,vehicles){
+       //
+       //        vehicles.forEach( (vehicle)=>{
+       //           count1++;
+       //        });
+       // });
+
+
+
+        console.log(instance.companyName);
+        var com = {
+          companyName : instance.companyName,
+          companyEmail : instance.companyEmail,
+          contactDetail : instance.contactDetail,
+          companyAddress : instance.companyAddress,
+          driverCount : count,
+          vehicleCount : count1
+        }
+
+        my_companies.push(com);
+
+
+     }); //loop ends
+     res.render('user_management',{
+       companyArray : my_companies
+     });
+
+  }); //reading from db ends
+
+});  //get request ends
 
 //----------- Route for User Page after Login -----------------//
 app.get('/user_page', (req, res) => {
@@ -180,11 +247,14 @@ app.get('/user_page', (req, res) => {
 
 //-------- Route for Signup page ------------------------------//
 app.get("/signup1", (req, res) => {
-  res.render("signup1");
+  res.render("signup1",{
+    flagValue : flag
+  });
+  flag = false;
 });
 
 
-//-------- Route for MY_Drivers after User_page
+//-------- Route for MY_Drivers after User_page------------------//
 app.get('/my_drivers', (req, res) => {
 
   my_driver = [];
@@ -205,7 +275,8 @@ app.get('/my_drivers', (req, res) => {
                   contactNumber: driver.contactNumber,
                   licenceNo: driver.licenceNo,
                   email: driver.email,
-                  address : driver.address
+                  address : driver.address,
+                  driver_dp : driver.driver_dp
                 }
 
                 //adding the driver in the array
@@ -213,9 +284,8 @@ app.get('/my_drivers', (req, res) => {
          });
 
         res.render('my_drivers', {
-        driverArray : my_driver,
-        message : flag
-      });
+        driverArray : my_driver
+       });
   });
 
 });
@@ -371,34 +441,71 @@ app.get('/update_profile', (req,res)=>{
 
 app.get('/my_driver_locations', (req,res)=>{
 
-  my_driver = [];
-  Driver.find( {}, function(err,drivers){
+my_driver = [];
+Driver.find( {}, function(err,drivers){
 
-      drivers.forEach( (driver)=>{
+    drivers.forEach( (driver)=>{
 
-        if(driver.companyEmail !== email ){
-          return;
-        }
+      if(driver.companyEmail !== email ){
+        return;
+      }
 
-        console.log(driver.firstName);
+      console.log(driver.firstName);
 
-        //creating a obj of a driver
-                var new_driver = {
-                  firstName: driver.firstName,
-                  contactNumber: driver.contactNumber,
-                  email: driver.email
-                }
+      //creating a obj of a driver
+              var new_driver = {
+                firstName: driver.firstName,
+                contactNumber: driver.contactNumber,
+                email: driver.email
+              }
 
-                //adding the driver in the array
-                my_driver.push(new_driver);
-         });
+              //adding the driver in the array
+              my_driver.push(new_driver);
+       });
 
-        res.render('my_driver_locations', {
-        userDriverArray : my_driver
-      });
+      res.render('my_driver_locations', {
+      userDriverArray : my_driver
+     });
   });
-
 });            //get request ends
+
+//--------- Get Request for my_vehicles ----------------//
+app.get('/my_vehicles', (req,res)=>{
+
+  my_vehicles = [];
+  Vehicle.find( {}, function(err,vehicles){
+
+    vehicles.forEach( (vehicle)=>{
+
+      if(vehicle.companyEmail !== email ){
+        return;
+      }
+
+      console.log(vehicle.modelName);
+
+      //creating a obj of a driver
+              var new_vehicle = {
+                modelName : vehicle.modelName,
+                vehicleNumber : vehicle.vehicleNumber,
+                pollutionLevel : vehicle.pollutionLevel,
+                insuranceDetailsNo : vehicle.insuranceDetailsNo,
+                insuranceValidity : vehicle.insuranceValidity,
+                vehicleEmail : email
+              }
+
+              //adding the driver in the array
+              my_vehicles.push(new_vehicle);
+       });
+
+
+         res.render('my_vehicles',{
+           vehicleArray : my_vehicles,
+           message : vehicleFlag
+         });
+         vehicleFlag = false;
+      });
+
+});
 
 //--------- Handling all the post request ---------------------------------------------------//
 
@@ -406,6 +513,7 @@ app.get('/my_driver_locations', (req,res)=>{
 
 app.post("/login", (req, res) => {
 
+  flag = false;
   email = req.body.username;
   var password = req.body.password;
 
@@ -415,51 +523,30 @@ app.post("/login", (req, res) => {
       if(company.length === 0){
         console.log("User Not found");
         flag = true;
-        res.redirect('/user_login1', {errorMsg: "User Not found"});
+        res.redirect('/user_login1');
       } else {
 
       console.log(company);
 
       const promise = auth.signInWithEmailAndPassword(email, password);
-      promise.catch(e => alert(e.message));
+      promise.then( ()=>{
+          console.log("Correct Password");
+          res.redirect('user_page');
+      }).catch( function(error){
+             if(error){
+             console.log("Invalid password");
+             flag = true;
+             res.redirect('/user_login1');
+           }
+        });
 
-      res.redirect('/user_page');
-      console.log("User Found");
-    }
+      }
+
+    });
 
   });
 
-
   //--------------------------------------------//
-  my_driver = [];
-  Driver.find( {}, function(err,drivers){
-
-      drivers.forEach( (driver)=>{
-
-        if(driver.companyEmail !== email ){
-          return;
-        }
-
-        console.log(driver.firstName);
-
-        //creating a obj of a driver
-                var new_driver = {
-                  firstName: driver.firstName,
-                  createdOn: driver.createdOn,
-                  contactNumber: driver.contactNumber,
-                  licenceNo: driver.licenceNo,
-                  email: driver.email,
-                  address : driver.address
-                }
-
-                //adding the driver in the array
-                my_driver.push(new_driver);
-         });
-      });
-
-
-});
-
 
 //--------------------------------    POST Request For Signup method -------------------------------------------//
 
@@ -468,6 +555,12 @@ app.post('/signup', (req, res) => {
   email = req.body.username;
   var password = req.body.password;
   var company = req.body.companyName;
+  var confirmPassword = req.body.confirmPassword;
+
+  if(password !== confirmPassword){
+    flag = true;
+    res.redirect('/signup1');
+  } else {
 
   // Create user with email and pass.
   // [START createUserwithemail]
@@ -502,13 +595,14 @@ app.post('/signup', (req, res) => {
           companyName : req.body.companyName,
           contactDetail : req.body.contactDetails,
           companyEmail : req.body.username,
-          companyAddress : "null"
+          companyAddress : req.body.address
        });
       //saving into the database
        newCompany.save();
 
 
-  res.redirect('/user_page');
+    res.redirect('/user_page');
+ }
 
 });
 
@@ -517,26 +611,34 @@ app.post('/signup', (req, res) => {
 
 app.post('/admin_login1', (req, res) => {
 
-       email = req.body.username;
+  var adminEmail = req.body.username;
   var password = req.body.password;
 
-  console.log(email);
+  console.log(process.env.ADMIN_USERNAME);
+  console.log(process.env.PASSWORD);
+  console.log(adminEmail);
+  console.log(password);
 
-  const promise = auth.signInWithEmailAndPassword(email, password);
-  promise.catch(e => alert(e.message));
-
-  res.redirect('/admin_page');
-
+  if(adminEmail === process.env.ADMIN_USERNAME && password === process.env.PASSWORD){
+     res.redirect('/admin_page');
+   } else {
+     flag = true;
+     res.redirect('admin_login1');
+   }
 });
 
 
 //--------- POST Request Signout User --------------------------------------------------//
+app.post('/admin_signout', (req,res)=>{
+  res.redirect('/');
+});
 
 app.post('/signout', (req, res) => {
 
  //clearing the array
   my_driver = [];
   driver_place = [];
+  my_vehicles = [];
 
   //sign out the user
   auth.signOut();
@@ -556,14 +658,14 @@ const storage = multer.diskStorage({
       call_back(null, file.fieldname+ "_"+Date.now()+path.extname(file.originalname)  )
   }
 })
-const upload = multer( { 
+const upload = multer( {
   storage: storage,
   limits: {
       fileSize: 1024*1024*2
   }
 })
 
-app.post('/my_drivers',  upload.single('driver_dp'), (req, res) => {
+app.post('/my_drivers', upload.single('driver_dp') , (req, res) => {
 
      var driverEmail = req.body.email;
 
@@ -577,7 +679,7 @@ app.post('/my_drivers',  upload.single('driver_dp'), (req, res) => {
      console.log(password);
 
 
-     //sending email to the driver
+     //sending email to the driverE
      const nodemailer = require('nodemailer');
      const { getMaxListeners } = require('process');
      const transporter = nodemailer.createTransport({
@@ -629,8 +731,7 @@ let mailOptions = {
         contactNumber: req.body.phoneNo,
         licenceNo: req.body.licenceNo,
         address: req.body.address,
-        email : req.body.email,
-        driver_dp = req.file.filename
+        email : req.body.email
       });
 
       console.log(email);
@@ -642,12 +743,42 @@ let mailOptions = {
         licenceNo: req.body.licenceNo,
         address: req.body.address,
         email : req.body.email,
-        companyEmail : email
+        companyEmail : email,
+        driver_dp : req.body.driver_dp
       });
 
       newDriver.save();
       res.redirect('/my_drivers');
     }
+
+});
+
+//---------- POST request for adding details of the driver ----------------------------//
+app.post('/my_vehicles', (req,res)=>{
+
+
+  //checking whther any field is empty or not
+  if( req.body.vehicleName === ""  || req.body.vehicleNumber === ""  || req.body.pollutionLevel === ""  ||
+      req.body.insuranceDetailsNo === ""  ||  req.body.insuranceValidity === "" ){
+
+             res.redirect('/my_vehicles');
+             vehicleFlag = true;
+      } else {
+
+          //storing data in the mongo database
+          const newVehicle = new Vehicle({
+            modelName : req.body.vehicleName,
+            vehicleNumber : req.body.vehicleNumber,
+            pollutionLevel : req.body.pollutionLevel,
+            insuranceDetailsNo : req.body.insuranceDetailsNo,
+            insuranceValidity : req.body.insuranceValidity,
+            companyEmail : email
+          });
+
+          newVehicle.save();
+          res.redirect('/my_vehicles');
+
+      }
 
 });
 
