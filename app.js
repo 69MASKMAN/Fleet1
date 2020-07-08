@@ -82,7 +82,8 @@ const driverSchema = new mongoose.Schema({
   licenceNo: String,
   address: String,
   email : String,
-  companyEmail : String
+  companyEmail : String,
+  driver_dp: String
 });
 
 //model creation
@@ -98,6 +99,7 @@ const Driver = mongoose.model("Driver", driverSchema);
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "/public/driver_dp")));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -205,12 +207,18 @@ app.get('/my_drivers', (req, res) => {
                   contactNumber: driver.contactNumber,
                   licenceNo: driver.licenceNo,
                   email: driver.email,
-                  address : driver.address
+                  address : driver.address,
+                  driver_dp:driver.driver_dp
                 }
-
+               
+                      
                 //adding the driver in the array
                 my_driver.push(new_driver);
          });
+         console.log(my_driver)
+        
+
+
 
         res.render('my_drivers', {
         driverArray : my_driver,
@@ -642,12 +650,15 @@ let mailOptions = {
         licenceNo: req.body.licenceNo,
         address: req.body.address,
         email : req.body.email,
-        companyEmail : email
+        companyEmail : email,
+        driver_dp: req.file.filename
       });
-
+        
       newDriver.save();
+       console.log(newDriver ," new driver")
       res.redirect('/my_drivers');
     }
+     
 
 });
 
