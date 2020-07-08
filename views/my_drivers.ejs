@@ -6,7 +6,7 @@
 
 <div class="add_driver">
     <h2><em>Add new Driver</em></h2>
-    <form method="POST" action="/my_drivers">
+    <form method="POST" action="/my_drivers" enctype="multipart/form-data">
         <div class="form-row">
             <div class="col-md-1 mt-4">
               <input type="text" class="form-control" name="firstName" placeholder="Name">
@@ -59,7 +59,7 @@
       <%       }                                  %>
 
               <th class="index" scope="row"><%= i %></th>
-              <td><img class="driver_pic" src="images/dp.jpeg"></td>
+              <td><img class="driver_pic" src="driver_dp/<%=driver.driver_dp %>"></td>
               <td> <%=   driver.createdOn   %> </td>
               <td> <%=   driver.firstName   %> </td>
               <td> <%=   driver.contactNumber     %></td>
