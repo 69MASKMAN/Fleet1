@@ -278,10 +278,15 @@ h4{
   padding: 3%;
 }
 #c_2_r_1 .card {
+  cursor: pointer;
   min-height: 55vh;
   text-align: center;
   background-color: #fff;
   box-shadow: 0 10px 30px gray;
+  transition: ease-in 0.2s;
+}
+#c_2_r_1 .card:hover {
+  box-shadow: 0 14px 30px rgb(85, 84, 84);
 }
 #c_2_r_1 .card-header {
   text-align: center;
