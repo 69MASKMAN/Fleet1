@@ -21,16 +21,25 @@
   </head>
 
 <body>
-
           <!-- Makes POST request to /login route -->
 
-        <form class="form-signin form-features" action="/signup" method="POST">
+        <form class="form-signin form-features" action="/signup" method="POST" enctype="multipart/form-data" >
+          <a  href="/" >
           <img class="mb-4" src="images/logo.png" alt="" width="130" height="130">
+          </a>
+          <%     if(flagValue){         %>
+            <p class="h3 mb-3 font-weight-normal">
+              Both password feilds should be same!
+            </p>
+          <%                    }        %>
           <h1 class="h3 mb-3 font-weight-normal">Sign Up!</h1>
           <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
           <input type="text" name="companyName" class="form-control" placeholder="Company Name" required autofocus>
           <input type="text" name="contactDetails" class="form-control" placeholder="Contact Details" required autofocus>
+          <input type="text" name="address" class="form-control" placeholder="Address" required>
           <input type="password" name="password" class="form-control" placeholder="Password" required>
+          <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+          <input type="file" name="company_dp" class="form-control">
           <div class="checkbox mb-3">
             <label>
               <input type="checkbox" value="remember-me"> Remember me
@@ -38,7 +47,5 @@
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">SignUp</button>
         </form>
-
-
-
-<%- include("partials/footer") -%>
+ </body>
+</html>
