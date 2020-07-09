@@ -394,7 +394,8 @@ app.get('/my_driver_locations', (req,res)=>{
                 var new_driver = {
                   firstName: driver.firstName,
                   contactNumber: driver.contactNumber,
-                  email: driver.email
+                  email: driver.email,
+                  driver_dp:driver.driver_dp
                 }
 
                 //adding the driver in the array
