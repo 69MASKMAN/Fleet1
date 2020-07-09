@@ -2,13 +2,12 @@
            <title>User Page</title>
          </head>
        <body>
-
-    <%- include("partials/navbar") -%>
+<%- include("partials/navbar") -%>
          <section id="user_DashBoard">
            <div class="row r_1">
                <div class="col-lg-3 c_1">
                    <div class="cross_bar"><i class="fas fa-times" id="cross"></i></div>
-                  <div class="dp"> <img src="images/dp.jpeg"></div>
+                  <div class="dp"> <img src="/company_driver_dp/<%= company_dp %>"></div>
                   <hr class="line"><br>
                   <h1>   <%=  companyName   %> </h1><br>
                   <hr class="line"><br />
@@ -16,6 +15,7 @@
                   <form class="admin-style" action="/signout" method="post">
                      <button class=" btn btn-outline-light" type="submit" name="button">Logout!</button>
                   </form>
+                  <br />
                </div>
                <div class="col-lg-9 c_2">
                    <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
@@ -23,7 +23,7 @@
                            <div class="upper_cards col-lg-4">
                                <div class="card">
                                    <div class="card-header">
-                                       <img class="my_image" src="images/dp.jpeg">
+                                       <img class="my_image" src="/company_driver_dp/<%= company_dp %>">
                                    </div>
                                    <div class="card-body">
                                        <a  class="my_link_upper" href="/update_profile"><h4>UPDATE PROFILE</h4></a>
@@ -48,15 +48,15 @@
                                    <div class="card-body">
                                        <h4>BILLING PLANS </h4>
                                        <p>
-                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                         Deserunt necessitatibus quasi sit! Ducimus donum,
-                                         nobis suscipit quasi sequi officiis facilis voluptatem!
+                                         Free Trial : <b>1 Month</b>*<br />
+                                         Monthly : <b>10$</b>*<br />
+                                         Annually : <b>80$</b>*<br />
                                        </p>
                                    </div>
 
                                </div>
                            </div>
-                           <div class="upper_cards col-lg-4">
+                           <!-- <div class="upper_cards col-lg-4">
                                <div class="card">
                                    <div class="card-header">
                                        <img class="my_image" src="images/user.jpg">
@@ -72,7 +72,7 @@
 
                                </div>
                            </div>
-                       </div>
+                       </div> -->
 
 
                        <div class="row c_2_r container-fluid" id="c_2_r_2">
@@ -100,13 +100,14 @@
 
                                    </div>
                                </div>
+
                                <div class="lower_cards col-lg-4">
                                    <div class="card">
                                        <div class="card-header">
-                                           <a  class="my_link" href="#"><i class="my_icon fas fa-car"></i></a>
+                                           <a  class="my_link" href="/my_vehicles"><i class="my_icon fas fa-car"></i></a>
                                        </div>
                                        <div class="card-body">
-                                            <a  class="my_link" href="#"><h2>MY VEHICLES</h2></a>
+                                            <a  class="my_link" href="/my_vehicles"><h2>MY VEHICLES</h2></a>
                                        </div>
 
                                    </div>
