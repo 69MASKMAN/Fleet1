@@ -1,12 +1,49 @@
 <%- include("partials/header") -%>
-    <title>Administrator</title>
-  </head>
-<body>
+           <title>Administrator</title>
+         </head>
+       <body>
 
-    <h1 class="admin-style">Admin Page!</h1>
-    <br />
-    <form class="admin-style" action="/signout" method="post">
-       <button type="submit" name="button">Log Out!</button>
-    </form>
+         <section id="user_DashBoard">
+           <div class="row r_1">
+               <div class="col-lg-3 c_1">
+                   <div class="cross_bar"><i class="fas fa-times" id="cross"></i></div>
+                  <div class="dp"> <img src="images/logo.png"></div>
+                  <hr class="line"><br>
+                  <h1> OBD solutions </h1><br>
+                  <hr class="line"><br />
+                    <div class="location-message"> </div><br />
+                  <form class="admin-style" action="/admin_signout" method="post">
+                     <button class=" btn btn-outline-light" type="submit" name="button">Logout!</button>
+                  </form>
+                  <br />
+                  <br />
+                  <br />
+               </div>
+               <div class="col-lg-9 c_2">
+                   <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
+                       <div class="row c_2_r container-fluid" id="c_2_r_1">
 
-  <%- include("partials/footer") -%>
+                           <div class="upper_cards col-lg-4">
+                               <div class="card">
+                                   <div class="card-header">
+                                       <img class="my_image" src="images/user.jpg">
+                                   </div>
+                                   <div class="card-body">
+                                       <a  class="my_link_upper" href="/user_management"><h4>USER MANAGEMENT</h4></a>
+                                       <p>
+                                         Registered Company <br />
+                                         and their drivers &<br />
+                                         Vehicles
+                                       </p>
+                                   </div>
+
+                               </div>
+                           </div>
+
+
+                       </div>
+                    </div>
+              </div>
+       </section>
+
+<%- include("partials/footer") -%>
