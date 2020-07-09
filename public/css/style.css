@@ -567,3 +567,32 @@ h4{
   font-weight: bold;
   font-size: 19px;;
 }
+
+/* ////////////////////////////////////FOOTER CSS ////////////////////////////////////////////////////////////////////////// */
+
+.page-footer {
+  background-color: rgb(22, 22, 22);
+  background-size: cover;
+  color: #fff;
+  font-weight: 80;
+  font-size: 1.4rem;
+}
+.page-footer p, .page-footer a {
+  text-decoration: none;
+  color: #eee;
+  font-size: 1.1rem;
+}
+.icons {
+  text-decoration: none;
+  color: #fff;
+  font-size: 2rem;
+  margin-left: 2%;
+}
+.icons:hover {
+  color: rgb(176, 176, 236);
+}
+.footer-copyright {
+  color: #888;
+  font-size: 1rem;
+  background-color: rgb(8, 1, 17);
+}
