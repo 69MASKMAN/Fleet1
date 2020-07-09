@@ -555,13 +555,13 @@ h4{
 .mynav {
   margin: 0;
   background-color: #000;
-  padding: 0.5% 2%;
+  padding: 0% 5%;
   position: sticky;
   top: 0px;
   z-index: 100;
 }
-.mynav .navbar-brand {
-  font-size: 24px;
+.mynav .navbar-brand img {
+  width: 40%;
 }
 .mynav .nav-link {
   font-size: 19px;;
