@@ -561,8 +561,9 @@ h4{
   z-index: 100;
 }
 .mynav .navbar-brand img {
-  width: 40%;
+  width: 30%;
 }
 .mynav .nav-link {
+  font-weight: bold;
   font-size: 19px;;
 }
