@@ -431,16 +431,26 @@ h4{
   color: #ad3a3a;
 }
 .contact_us {
-  margin-top: 5%;
+  margin: 5% 0 2% 0;
   padding: 0 3%;
+}
+.contact_us h2, .message h2 {
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.contact_us a, .contact_us h3 {
+  text-decoration: none;
+  color: #ad3a3a;
 }
 .contact_details {
   border-radius: 10px;
   padding: 3% 7%;
   transition: 0.3s ease-in-out;
 }
-.contact_details:hover {
-  box-shadow: 0 20px 35px #ebe6e6;
+.contact_details:hover, .message:hover {
+  box-shadow: 0 20px 35px #cecdcd;
 }
 .contact_details div {
   padding: 3% 0;
@@ -451,12 +461,14 @@ h4{
   color: #ad3a3a;
 }
 .message {
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
   padding: 3% 5%;
 }
 .message form {
   position: relative;
 }
-.message form textarea, .message form textarea:focus {
+.message form textarea, .message form textarea:focus, .message form .c_input, .message form .c_input:focus {
   background-color: #fce8c4;
 }
 .message form button {
