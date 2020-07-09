@@ -12,7 +12,7 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.8);">
         <div class="modal-header">
@@ -49,10 +49,10 @@
         </div>
         </div>
       </div>
-      
+
     </div>
   </div>
-  
+
 </div>
 
 <div class="driver_table">
@@ -81,7 +81,7 @@
       <%       }                                  %>
 
               <th class="index" scope="row"><%= i %></th>
-              <td><img class="driver_pic" src="/driver_dp/<%= driver.driver_dp %> " ></td>
+              <td><img class="driver_pic" src="/company_driver_dp/<%= driver.driver_dp %> " ></td>
               <td> <%=   driver.createdOn   %> </td>
               <td> <%=   driver.firstName   %> </td>
               <td> <%=   driver.contactNumber     %></td>
@@ -101,12 +101,5 @@
         </tbody>
       </table>
 </div>
-
-
-
-
-
-
-
 
 <%- include("partials/footer") -%>
