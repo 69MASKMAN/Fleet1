@@ -1,6 +1,7 @@
 /* --------Home Page ----------*/
 body, html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 .bg {
@@ -542,4 +543,21 @@ h4{
   width: 5%;
   border: 0px;
   background-color: rgb(172, 168, 168);
+}
+
+/* /////////////////////////////////////////// NAVBAR CSS ////////////////////////////////////////////////////////// */
+
+.mynav {
+  margin: 0;
+  background-color: #000;
+  padding: 0.5% 2%;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
+.mynav .navbar-brand {
+  font-size: 24px;
+}
+.mynav .nav-link {
+  font-size: 19px;;
 }
