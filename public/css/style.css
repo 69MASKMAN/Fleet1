@@ -371,15 +371,9 @@ h4{
   padding: 2% 3% 4% ;
   text-align: center;
 }
-.add_driver h2 {
-  color: #d45050;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-weight: bold;
-  text-transform: uppercase;
-}
 .add_driver .form-control {
-  border: 2px solid #eb7272;
-  border-radius: 0;;
+  border: 0px ;
+  border-radius: 0;
 }
 .add_driver button {
   padding: 3%;
