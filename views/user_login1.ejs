@@ -21,14 +21,18 @@
   </head>
 
 <body>
-
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-8">
           <!-- Makes POST request to /login route -->
 
         <form class="form-signin form-features" action="/login" method="POST">
+          <a  href="/" >
           <img class="mb-4" src="images/logo.png" alt="" width="130" height="130">
+          </a>
+          <%     if(message){         %>
+            <p class="mb-3 font-weight-normal">
+              Invalid credentials!
+            </p>
+          <%                    }      %>
           <h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
           <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
           <input type="password" name="password" class="form-control" placeholder="Password" required>
@@ -41,38 +45,8 @@
           <br />
           <a href="/signup1"><button type="button" class="btn btn-lg btn-primary login-button">New User -> SignUp</button></a>
           <br /><br />
-          <p>
-            *incase of invalid credentials you will be redirected here!
-          </p>
         </form>
 
-      </div>
-
-      <!-- Vertical line -->
-      <div class="vr">&nbsp;</div>
-
-      <!-- other login options -->
-      <div class="col-lg-2 social-media">
-        <div class="google-button social-media-button">
-          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Login | google
-          </a>
-        </div>
-        <div class="facebook-button social-media-button">
-          <a class="btn btn-block btn-social btn-facebook" href="" role="button">
-            <i class="fab fa-facebook"></i>
-            Login | facebook
-          </a>
-        </div>
-        <div class="instagram-button social-media-button">
-          <a class="btn btn-block btn-social btn-instagram" href="" role="button">
-            <i class="fab fa-instagram"></i>
-            Login | instagram
-          </a>
-        </div>
-      </div>
-
-    </div>
   </div>
-
+ </body>
+</html>
