@@ -3,79 +3,36 @@
          </head>
        <body>
 
-         <section id="user_DashBoard">
-           <div class="row r_1">
-               <div class="col-lg-12 c_2">
-                   <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
-                       <div class="row c_2_r container-fluid" id="c_2_r_1">
+        <section id="user_DashBoard">
+            <div class="row r_1">
+                <div class="col-lg-12 c_2">
+                    <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
+                        <div class="row c_2_r container-fluid" id="c_2_r_1">
+                         <% drivers.forEach((cmpnies) => { %>
+                         <% cmpnies.forEach((cmp) => { %>
+                             <div class="upper_cards col-lg-3">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <img class="driver_pic" src="/company_driver_dp/<%= cmp. driver_dp %> " >
+                                     </div>
+                                   
+                                     <div class="card-body">
+                                <p><%= cmp.firstName %> </p>
+                                 <p> <%= cmp.createdOn %> </p> 
+                                  <p> <%= cmp.contactNumber %> </p>    
+                                      <p><%= cmp.licenceNo %>  </p>
+                                      <p><%= cmp.email  %>  </p>
+                                      <p><%= cmp. address %>  </p>      
+                                  </div>
+  
+                                 </div>
+                             </div>
+                         <% }) %>
+                         <% }) %>
+                        </div>
+                     </div>
+               </div>
+        </section>
 
-                           <div class="upper_cards col-lg-3">
-                               <div class="card">
-                                   <div class="card-header">
-                                       <img class="my_image" src="images/user.jpg">
-                                   </div>
-                                   <div class="card-body">
-                                    <h4>COMPANY NAME </h4>
-                                       <p>
-                                         Drivers : <b>1 Month</b>*<br />
-                                         Pay : <b>10$</b>*<br />
-                                         Ratings : <b>4.6</b>*<br />
-                                       </p>
-                                </div>
-
-                               </div>
-                           </div>
-                           <div class="upper_cards col-lg-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <img class="my_image" src="images/user.jpg">
-                                </div>
-                                <div class="card-body">
-                                    <h4>COMPANY NAME </h4>
-                                       <p>
-                                         Drivers : <b>1 Month</b>*<br />
-                                         Pay : <b>10$</b>*<br />
-                                         Ratings : <b>4.6</b>*<br />
-                                       </p>
-                                </div>
-
-                            </div>
-                           </div>
-                           <div class="upper_cards col-lg-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <img class="my_image" src="images/user.jpg">
-                                </div>
-                                <div class="card-body">
-                                    <h4>COMPANY NAME </h4>
-                                       <p>
-                                         Drivers : <b>1 Month</b>*<br />
-                                         Pay : <b>10$</b>*<br />
-                                         Ratings : <b>4.6</b>*<br />
-                                       </p>
-                                </div>
-                            </div>
-                           </div>
-                           <div class="upper_cards col-lg-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <img class="my_image" src="images/user.jpg">
-                                </div>
-                                <div class="card-body">
-                                    <h4>COMPANY NAME </h4>
-                                       <p>
-                                         Drivers : <b>1 Month</b>*<br />
-                                         Pay : <b>10$</b>*<br />
-                                         Ratings : <b>4.6</b>*<br />
-                                       </p>
-                                </div>
-
-                            </div>
-                           </div>
-
-                       </div>
-                    </div>
-              </div>
-       </section>
 
 <%- include("partials/footer") -%>

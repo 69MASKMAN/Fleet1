@@ -125,8 +125,10 @@ var userID;
 var email;
 var flag = false;
 var vehicleFlag = false;
-console.log(flag);
 
+var companies
+var drivers
+var vehicles
 //----------- Global Function ----------------//
 function NewEmail(d_email){
 
@@ -176,23 +178,87 @@ app.get("/admin_login1", (req, res) => {
 
 
 //----------- Route for Admin Page ----------------------------//
-app.get('/admin_page', (req, res) => {
-  res.render('admin_page');
-});
+// app.get('/admin_page', (req,res)=>{
+
+//   Company.find( (err,docs)=>{
+//     companies = docs.length;
+//   });
+
+//   Vehicle.find( (err,docs)=>{
+//     vehicles = docs.length;
+//   });
+
+//   Driver.find( (err,docs)=>{
+//     drivers = docs.length;
+//   });
+
+//   setTimeout( ()=>{
+//     res.render('admin_page', {
+//       companies : companies,
+//       drivers : drivers,
+//       vehicles : vehicles
+//     });
+//   },2000);
+// });
+app.get('/admin_page', async(req,res)=>{
+
+ await Company.find( (err,docs)=>{
+    companies = docs.length;
+  });
+
+   await Vehicle.find( (err,docs)=>{
+    vehicles = docs.length;
+  });
+
+   await Driver.find( (err,docs)=>{
+    drivers = docs.length;
+  });
+
+  
+    res.render('admin_page', {
+      companies : companies,
+      drivers : drivers,
+      vehicles : vehicles
+    });
+  }
+);
+
 app.get('/vehicles', (req, res) => {
-  res.render('vehicles');
+  Vehicle.find( (err, docs) => {
+    var vehicleChunk =[]
+    var chunkSize = 4
+    for(var i=0; i<docs.length; i+=chunkSize) {
+        vehicleChunk.push(docs.slice(i,i+chunkSize))
+    }
+    res.render('vehicles', {vehicles :vehicleChunk}  )
+   
+})
 });
+
+
 app.get('/drivers', (req, res) => {
-  res.render('drivers');
+  Driver.find( (err, docs) => {
+    var driverChunk =[]
+    var chunkSize = 4
+    for(var i=0; i<docs.length; i+=chunkSize) {
+        driverChunk.push(docs.slice(i,i+chunkSize))
+    }
+    res.render('drivers', {drivers :driverChunk}  )
+   
+})
+ 
 });
+
+
+
 app.get('/companies', (req, res) => {
   Company.find( (err, docs) => {
-    var companyChunk = []
+    var companyChunk =[]
     var chunkSize = 4
     for(var i=0; i<docs.length; i+=chunkSize) {
         companyChunk.push(docs.slice(i,i+chunkSize))
     }
-   // console.log(companyChunk)
+   console.log(companyChunk[0])
     res.render('companies', {Companies : companyChunk}  )
    
 })
