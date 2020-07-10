@@ -179,6 +179,24 @@ app.get("/admin_login1", (req, res) => {
 app.get('/admin_page', (req, res) => {
   res.render('admin_page');
 });
+app.get('/vehicles', (req, res) => {
+  res.render('vehicles');
+});
+app.get('/drivers', (req, res) => {
+  res.render('drivers');
+});
+app.get('/companies', (req, res) => {
+  Company.find( (err, docs) => {
+    var companyChunk = []
+    var chunkSize = 4
+    for(var i=0; i<docs.length; i+=chunkSize) {
+        companyChunk.push(docs.slice(i,i+chunkSize))
+    }
+   // console.log(companyChunk)
+    res.render('companies', {Companies : companyChunk}  )
+   
+})
+});
 
 //--------- Route for User MANAGEMENT -------------------------//
 app.get('/user_management',(req,res)=>{

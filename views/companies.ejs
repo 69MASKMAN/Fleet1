@@ -1,0 +1,33 @@
+<%- include("partials/header") -%>
+           <title>Companies</title>
+         </head>
+       <body>
+
+         <section id="user_DashBoard">
+           <div class="row r_1">
+               <div class="col-lg-12 c_2">
+                   <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
+                       <div class="row c_2_r container-fluid" id="c_2_r_1">
+                            
+                        <% Companies.forEach((cmp) => { %>
+                            <div class="upper_cards col-lg-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <img class="driver_pic" src="/company_driver_dp/<%= cmp.company_dp %> " >
+                                    </div>
+                                    <div class="card-body">
+                               <p><%= cmp.companyName %> </p>
+                                <p> <%= cmp.companyEmail %> </p> 
+                                 <p> <%= cmp.companyAddress %> </p>    
+                                     <p><%= cmp.contactDetail %>  </p>    
+                                 </div>
+ 
+                                </div>
+                            </div>
+                        <% }) %>
+                       </div>
+                    </div>
+              </div>
+       </section>
+
+<%- include("partials/footer") -%>
