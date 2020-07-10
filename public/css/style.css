@@ -588,3 +588,18 @@ h4{
   font-size: 1rem;
   background-color: rgb(8, 1, 17);
 }
+
+/* ///////////////////////////////////// ABOUT US ///////////////////////////////////////////////////// */
+.about-page{
+  text-align: center;
+}
+.zoom-text:hover{
+  transform: scale(1.2);
+}
+/*********************************** NOT Found PAge *********************************************/
+.back-button{
+  color : #bb2121;
+}
+.back-button:hover{
+  color: #d45050;
+}
