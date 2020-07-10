@@ -246,7 +246,7 @@ input[type=email]:focus,
   width: 50%;
 }
 .my_link{
-  color: #fff;
+  color: #bb2121;
   text-decoration: none;
 }
 .my_link:hover{
@@ -285,7 +285,7 @@ h4{
   box-shadow: 0 10px 30px gray;
   transition: ease-in 0.2s;
 }
-#c_2_r_1 .card:hover {
+#c_2_r_1 .card:hover, #c_2_r_2 .card:hover {
   box-shadow: 0 14px 30px rgb(85, 84, 84);
 }
 #c_2_r_1 .card-header {
@@ -306,19 +306,21 @@ h4{
 #c_2_r_2 .card {
   min-height: 40vh;
   border: 0px;
-  color: white;
-  background-color: #bb2121;
+  color: #000;
+  background-color: #fff;
   border: 0px;
   text-align: center;
   box-shadow: 0 10px 30px gray;
+  transition: ease-in 0.2s;
 }
 #c_2_r_2 .card-header {
-  background-color: #bb2121;
+  background-color: #fff;
   padding: 6%;
 }
 #c_2_r_2 .card .my_icon{
   font-size: 9rem;
 }
+
 
 /* ////////////////////////////////////////////////HAMBURGER MENU ////////////////////////////////////////////////////// */
 .cross_bar {
