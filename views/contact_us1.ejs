@@ -3,47 +3,50 @@
 </head>
 <body>
 
+  <div class="container-fluid">
+      <h1 class="contact_us_heading"><a  href="/" >
+      <img src="images/logo.png" alt="" width="110" height="110">
+      </a><br />CONTACT US</h1><hr style="width: 60%;  height: 3px;">
+      <div class="row contact_us">
+          <div class="col-lg-5 contact_details">
+              <h2>Connect with us:</h2><br>
+              <div>
+                  <h3>Mailing Address</h3>
+                  <p>123 Anywhere, Any City, State, Country, 12345</p>
+              </div>
+              <div>
+                  <h3><a href="mailto:abcd@gmail.com">Email Address</a></h3>
+                  <p>abcd@gmail.com</p>
+              </div>
+              <div>
 
-<div class="container-fluid">
-    <h1 class="contact_us_heading"><a  href="/" >
-    <img src="images/logo.png" alt="" width="110" height="110">
-    </a><br />CONTACT US</h1>
-    <div class="row contact_us">
-        <div class="col-lg-5 contact_details">
-            <div>
-                <h3>Mailing Address</h3>
-                <p>123 Anywhere, Any City, State, Country, 12345</p>
-            </div>
-            <div>
-                <h3>Email Address</h3>
-                <p>abcd@gmail.com</p>
-            </div>
-            <div>
-                <h3>Phone Number</h3>
-                <p>(123) 4567890</p>
-            </div>
-        </div>
-        <div class="col-lg-7 message">
-            <form method="POST" action="/contact_us">
-                    <div>
-                        <textarea class="form-control" placeholder="Address" rows="13"></textarea>
-                    </div>
-                    <div>
-                        <button class="mt-4 ml-0 btn btn-danger" type="submit">Send</button>
-                    </div>
-            </form>
-        </div>
-    </div>
+                  <h3><a href="tel:123-456-7890">Phone Number</a></h3>
+                  <p>(123) 4567890</p>
+              </div>
+          </div>
+          <div class="col-lg-7 message">
+              <h2>Get in touch</h2>
+              <p>Please fill out the quick form and we will be in touch with lighteing speed</p><br><br>
+              <form method="POST" action="/contact_us">
+                      <div class="form-row">
+                          <div class="form-group col">
+                              <input type="text" class="form-control c_input" placeholder="Your good name">
+                          </div>
+                          <div class="form-group col">
+                              <input type="email" class="form-control c_input" placeholder="What is your email">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <textarea class="form-control" placeholder="Message" rows="13"></textarea>
+                      </div>
+                      <div>
+                          <button class="mt-4 ml-0 btn btn-danger" type="submit">Send</button>
+                      </div>
+              </form>
+          </div>
+      </div>
 
-</div>
-
-
-
-
-
-
-
-
+  </div>
 
 
 
