@@ -1,0 +1,105 @@
+<%- include("partials/header") -%>
+<title>My Vehicles</title>
+</head>
+<body>
+
+<%- include("partials/navbar") -%>
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-dark my-5 btn-lg" data-toggle="modal" data-target="#myModal">Add new vehicle</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="modal-header">
+          <h2 class="ml-3 text-danger"><em>Add new vehicle</em></h2>
+          <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="add_driver">
+            <form method="POST" action="/my_drivers" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="vehicleName" placeholder="Vehicle Model">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="vehicleNumber" placeholder="Vehicle Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control"  name="pollutionLevel" placeholder="Pollution Check Validity">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="insuranceDetailsNo" placeholder="Vehicle Insurance No.">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="insuranceValidity" placeholder="Insurance Validity">
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-6">
+                          <button type="submit">Add vehicle</button>
+                      </div>
+                    </div>
+            </form>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="driver_table">
+      <table class="table">
+        <thead class=" bg-danger text-white">
+          <tr>
+            <th scope="col">S No.</th>
+            <th scope="col">Model</th>
+            <th scope="col">Vehicle No.</th>
+            <th scope="col">Pollution Level</th>
+            <th scope="col">Insurance No.</th>
+            <th scope="col">Insurance Validity</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+      <%    var i = 1;                             %>
+      <%    vehicleArray.forEach( (vehicle) => {   %>
+
+      <%       if(i%2 !== 0){                      %>
+                 <tr>
+      <%       } else {                            %>
+                <tr class="table-danger">
+      <%       }                                   %>
+
+              <th class="index" scope="row"><%= i %></th>
+              <td> <%=   vehicle.modelName          %> </td>
+              <td> <%=   vehicle.vehicleNumber      %> </td>
+              <td> <%=   vehicle.pollutionLevel     %></td>
+              <td> <%=   vehicle.insuranceDetailsNo %></td>
+              <td> <%=   vehicle.insuranceValidity  %></td>
+              <td >
+                <a class="my_link" href="/delete_vehicle/<%= vehicle.vehicleEmail %>" >
+                 <i class="fa fa-trash-alt text-danger"></i>
+                </a>
+              </td>
+          </tr>
+
+      <%    i++;                                   %>
+      <%    });                                    %>
+
+        </tbody>
+      </table>
+</div>
+
+
+
+
+
+
+
+
+<%- include("partials/footer") -%>
