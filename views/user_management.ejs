@@ -1,0 +1,59 @@
+<%- include("partials/header") -%>
+<title>My Drivers</title>
+</head>
+<body>
+
+  <a class="back-button" href="/admin_page" >
+   <i class="fas fa-home fa-2x"></i>
+  </a>
+
+<div class="add_driver">
+    <h2><em>Company Details</em></h2>
+</div>
+
+<div class="driver_table">
+      <table class="table">
+        <thead class=" bg-danger text-white">
+          <tr>
+            <th scope="col">S No.</th>
+            <th scope="col">Company</th>
+            <th scope="col">Email</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Address</th>
+            <th scope="col">Drivers</th>
+            <th scope="col">Vehicles</th>
+          </tr>
+        </thead
+        <tbody>
+      <%    var i = 1;                             %>
+      <%    companyArray.forEach( (company) => {     %>
+
+      <%       if(i%2 !== 0){                      %>
+                 <tr>
+      <%       } else {                            %>
+                <tr class="table-danger">
+      <%       }                                  %>
+
+              <th class="index" scope="row"><%= i %></th>
+              <td> <%=   company.companyName     %> </td>
+              <td> <%=   company.companyEmail    %> </td>
+              <td> <%=   company.contactDetail   %></td>
+              <td> <%=   company.companyAddress  %></td>
+              <td> <%=   company.driver_cnt      %> </td>
+              <td> <%=   company.vehicle_cnt     %></td>
+            </tr>
+      <%    i++;                                   %>
+      <%    });                                    %>
+
+        </tbody>
+      </table>
+</div>
+
+
+
+
+
+
+
+
+<%- include("partials/footer") -%>
