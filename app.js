@@ -202,13 +202,13 @@ app.get("/admin_login1", (req, res) => {
 // });
 app.get('/admin_page', async(req,res)=>{
 
- await Company.find( (err,docs)=>{
+   await Company.find( (err,docs)=>{
     companies = docs.length;
-  });
+   });
 
    await Vehicle.find( (err,docs)=>{
     vehicles = docs.length;
-  });
+   });
 
    await Driver.find( (err,docs)=>{
     drivers = docs.length;
@@ -230,20 +230,30 @@ app.get('/vehicles', (req, res) => {
     for(var i=0; i<docs.length; i+=chunkSize) {
         vehicleChunk.push(docs.slice(i,i+chunkSize))
     }
-    res.render('vehicles', {vehicles :vehicleChunk}  )
+    res.render('vehicles', {vehicles :vehicleChunk})
    
-})
+  })
 });
 
 // router for details page..........
-app.get('/details/:companyId', (req, res) => {
-    // const id=req.params.companyId
-       Company.findOne( req.params.companyId, (err, data) => {
-        console.log(data)
-        res.send(data)
-        // res.render('details')
+app.get('/details/:id', async(req, res) => {
+       var mycompany
+       var mydrivers
+       var myvehicles  
+    await Company.findById( req.params.id, (err, data) => {
+        if(err)
+        return res.status(500).send({err: "error in finding company data"})
+        console.log(data.companyName)
+        mycompany= data
+    })   
+    await Driver.find({companyEmail: mycompany.companyEmail}, (err, driver) => {
+      mydriver= driver.length
     })
-    
+    await Vehicle.find({companyEmail: mycompany.companyEmail}, (err, vehicle) => {
+      myvehicle= vehicle.length
+    })
+    console.log(mycompany, mydrivers)
+    res.render('details', {comp: mycompany, mydrivers: mydrivers, myvehicles: myvehicles})
 })
 
 app.get('/drivers', (req, res) => {
@@ -255,10 +265,8 @@ app.get('/drivers', (req, res) => {
     }
     res.render('drivers', {drivers :driverChunk}  )
    
-})
+  })
 });
-
-
 
 app.get('/companies', (req, res) => {
   Company.find( (err, docs) => {
@@ -267,8 +275,7 @@ app.get('/companies', (req, res) => {
     for(var i=0; i<docs.length; i+=chunkSize) {
         companyChunk.push(docs.slice(i,i+chunkSize))
     }
-    res.render('companies', {Companies : companyChunk}  )
-   
+    res.render('companies', {Companies : companyChunk})
 })
 });
 

@@ -7,14 +7,11 @@
            <div class="row r_1">
                <div class="col-lg-3 c_1">
                    <div class="cross_bar"><i class="fas fa-times" id="cross"></i></div>
-                  <div class="dp"> <img src="images/logo.png"></div>
+                  <div class="dp"> <img src="company_driver_dp/<%= comp.company_dp %>"></div>
                   <hr class="line"><br>
-                  <h1> OBD solutions </h1><br>
+                  <h1> <%= comp.companyName %> </h1><br>
                   <hr class="line"><br />
                     <div class="location-message"> </div><br />
-                  <form class="admin-style" action="/admin_signout" method="post">
-                     <button class=" btn btn-outline-light" type="submit" name="button">Logout!</button>
-                  </form>
                   <br />
                   <br />
                   <br />
@@ -28,7 +25,7 @@
                                     <img class="my_image" src="images/user.jpg">
                                 </div>
                                 <div class="card-body">
-                                    <span style="font-size: 8rem; font-weight: bold; color: #147075;">443 </span>
+                                    <span style="font-size: 8rem; font-weight: bold; color: #147075;"><%= mydrivers %> </span>
                                     <a  class="my_link_upper" href="/drivers"><h1>DRIVERS</h1></a>
                                 </div>
 
@@ -40,7 +37,7 @@
                                   <img class="my_image" src="images/user.jpg">
                               </div>
                               <div class="card-body">
-                                  <span style="font-size: 8rem; font-weight: bold; color: #147075;">899  </span>
+                                  <span style="font-size: 8rem; font-weight: bold; color: #147075;"><%= myvehicles %> </span>
                                   <a  class="my_link_upper" href="/vehicles"><h1>VEHICLE</h1></a>
                               </div>
 
