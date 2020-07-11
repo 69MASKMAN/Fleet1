@@ -235,6 +235,16 @@ app.get('/vehicles', (req, res) => {
 })
 });
 
+// router for details page..........
+app.get('/details/:companyId', (req, res) => {
+    // const id=req.params.companyId
+       Company.findOne( req.params.companyId, (err, data) => {
+        console.log(data)
+        res.send(data)
+        // res.render('details')
+    })
+    
+})
 
 app.get('/drivers', (req, res) => {
   Driver.find( (err, docs) => {
@@ -246,7 +256,6 @@ app.get('/drivers', (req, res) => {
     res.render('drivers', {drivers :driverChunk}  )
    
 })
- 
 });
 
 
@@ -258,7 +267,6 @@ app.get('/companies', (req, res) => {
     for(var i=0; i<docs.length; i+=chunkSize) {
         companyChunk.push(docs.slice(i,i+chunkSize))
     }
-   console.log(companyChunk[0])
     res.render('companies', {Companies : companyChunk}  )
    
 })
