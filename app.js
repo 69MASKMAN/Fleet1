@@ -129,6 +129,7 @@ var vehicleFlag = false;
 var companies
 var drivers
 var vehicles
+
 //----------- Global Function ----------------//
 function NewEmail(d_email){
 
@@ -223,8 +224,50 @@ app.get('/admin_page', async(req,res)=>{
   }
 );
 
-app.get('/vehicles', (req, res) => {
-  Vehicle.find( (err, docs) => {
+// router for details page..........
+app.get('/details/:id', async(req, res) => {
+  var mydrivers
+  var mycompany
+  var myvehicles
+    await Company.findById( req.params.id, (err, data) => {
+        mycompany= data
+     });
+
+    await Driver.find({companyEmail: mycompany.companyEmail}, (err, driver) => {
+      mydrivers=driver.length
+    });
+
+    await Vehicle.find({companyEmail: mycompany.companyEmail}, (err, vehicle) => {
+      myvehicles= vehicle.length
+    });
+
+    //  console.log(mycompany, mydrivers)
+    res.render('details', {comp: mycompany, mydrivers: mydrivers, myvehicles: myvehicles})
+})
+
+app.get('/drivers/:Id', async(req, res) => {
+  var mycompany
+  await Company.findById( req.params.Id, (err, data) => {
+    mycompany= data
+  });
+  Driver.find({companyEmail: mycompany.companyEmail}, (err, docs) => {
+    var driverChunk =[]
+    var chunkSize = 4
+    for(var i=0; i<docs.length; i+=chunkSize) {
+        driverChunk.push(docs.slice(i,i+chunkSize))
+    }
+    res.render('drivers', {drivers :driverChunk}  )
+   
+  })
+});
+app.get('/vehicles/:Id', async(req, res) => {
+  var mydrivers
+  var mycompany
+  var myvehicles
+  await Company.findById( req.params.Id, (err, data) => {
+    mycompany= data
+  });
+  Vehicle.find({companyEmail: mycompany.companyEmail}, (err, docs) => {
     var vehicleChunk =[]
     var chunkSize = 4
     for(var i=0; i<docs.length; i+=chunkSize) {
@@ -235,38 +278,6 @@ app.get('/vehicles', (req, res) => {
   })
 });
 
-// router for details page..........
-app.get('/details/:id', async(req, res) => {
-       var mycompany
-       var mydrivers
-       var myvehicles  
-    await Company.findById( req.params.id, (err, data) => {
-        if(err)
-        return res.status(500).send({err: "error in finding company data"})
-        console.log(data.companyName)
-        mycompany= data
-    })   
-    await Driver.find({companyEmail: mycompany.companyEmail}, (err, driver) => {
-      mydriver= driver.length
-    })
-    await Vehicle.find({companyEmail: mycompany.companyEmail}, (err, vehicle) => {
-      myvehicle= vehicle.length
-    })
-    console.log(mycompany, mydrivers)
-    res.render('details', {comp: mycompany, mydrivers: mydrivers, myvehicles: myvehicles})
-})
-
-app.get('/drivers', (req, res) => {
-  Driver.find( (err, docs) => {
-    var driverChunk =[]
-    var chunkSize = 4
-    for(var i=0; i<docs.length; i+=chunkSize) {
-        driverChunk.push(docs.slice(i,i+chunkSize))
-    }
-    res.render('drivers', {drivers :driverChunk}  )
-   
-  })
-});
 
 app.get('/companies', (req, res) => {
   Company.find( (err, docs) => {
@@ -396,7 +407,7 @@ app.get('/my_drivers', (req, res) => {
 
 //------- Route for contact_us --------------------------------//
 app.get('/contact_us', (req, res) => {
-  res.render('contact_us');
+  res.render('contact_us1');
 });
 
 
