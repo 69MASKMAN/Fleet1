@@ -29,9 +29,9 @@
           <img class="mb-4" src="images/logo.png" alt="" width="130" height="130">
           </a>
           <%     if(message){         %>
-            <p class="mb-3 font-weight-normal">
-              Invalid credentials!
-            </p>
+            <div class="alert alert-danger" style="background-color: rgb(248, 139, 139);" role="alert">
+              <b>Invalid Credentials!</b>
+            </div>
           <%                    }      %>
           <h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
           <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>

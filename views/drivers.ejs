@@ -3,37 +3,48 @@
          </head>
        <body>
 
+        <%- include("partials/navbar_admin") -%>
+        
         <h1 class="text-danger mt-5"><center>Drivers associated with <%= mycompany.companyName %></center></h1><hr class="bg-danger" style="width: 20%;">
-        <section id="user_DashBoard">
-            <div class="row r_1">
-                <div class="col-lg-12 c_2">
-                    <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
-                        <div class="row c_2_r container-fluid" id="c_2_r_1">
-                         <% drivers.forEach((cmpnies) => { %>
-                         <% cmpnies.forEach((cmp) => { %>
-                             <div class="upper_cards col-lg-3">
-                                 <div class="card">
-                                     <div class="card-header">
-                                         <img class="driver_pic" src="/company_driver_dp/<%= cmp. driver_dp %> " style="width: 60%; height: 170px; border: 5px solid #d33939; border-radius: 50%;" >
-                                     </div>
-                                   
-                                     <div class="card-body" style="text-align: left; margin-left: 6.5%;">
-                                        <p><b>Name</b>: <%= cmp.firstName %> </p>
-                                        <p><b>Created on: </b> <%= cmp.createdOn %> </p> 
-                                        <p><b>Contact no: </b> <%= cmp.contactNumber %> </p>    
-                                        <p><b>Created on: </b><%= cmp.licenceNo %>  </p>
-                                        <p><b>Email: </b><%= cmp.email  %>  </p>
-                                        <p><b>Address: </b><%= cmp. address %>  </p>      
-                                  </div>
-  
-                                 </div>
-                             </div>
-                         <% }) %>
-                         <% }) %>
-                        </div>
-                     </div>
-               </div>
-        </section>
+        <% if(drivers.length===0) { %>
+            <div class="alert alert-primary" style="width: 50%; margin: 7% auto; padding: 5%; text-align: center;" role="alert">
+                <h2><span style="font-size: 2.8rem;">Sorry :(</span> &nbsp; &nbsp; &nbsp; <br><br>No Drivers added yet...</h2>
+                <a class="btn bg-primary mt-5 text-light" style="margin: 0;" href="/companies">OK</a>
+            </div>  
+        <% } %>
+
+        <% if(drivers.length>0) { %>
+                <section id="user_DashBoard">
+                    <div class="row r_1">
+                        <div class="col-lg-12 c_2">
+                            <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
+                                <div class="row c_2_r container-fluid" id="c_2_r_1">
+                                <% drivers.forEach((cmpnies) => { %>
+                                <% cmpnies.forEach((cmp) => { %>
+                                    <div class="upper_cards col-lg-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <img class="driver_pic" src="/company_driver_dp/<%= cmp. driver_dp %> " style="width: 60%; height: 170px; border: 5px solid #d33939; border-radius: 50%;" >
+                                            </div>
+                                        
+                                            <div class="card-body" style="text-align: left; margin-left: 6.5%;">
+                                                <p><b>Name</b>: <%= cmp.firstName %> </p>
+                                                <p><b>Created on: </b> <%= cmp.createdOn %> </p> 
+                                                <p><b>Contact no: </b> <%= cmp.contactNumber %> </p>    
+                                                <p><b>Created on: </b><%= cmp.licenceNo %>  </p>
+                                                <p><b>Email: </b><%= cmp.email  %>  </p>
+                                                <p><b>Address: </b><%= cmp. address %>  </p>      
+                                        </div>
+        
+                                        </div>
+                                    </div>
+                                <% }) %>
+                                <% }) %>
+                                </div>
+                            </div>
+                    </div>
+                </section>
+        <% } %>
 
 
 <%- include("partials/footer") -%>

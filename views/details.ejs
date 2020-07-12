@@ -3,8 +3,11 @@
          </head>
        <body>
 
+        <%- include("partials/navbar_admin") -%>
+        
          <section id="user_DashBoard">
            <div class="row r_1">
+               
                <div class="col-lg-3 c_1">
                    <div class="cross_bar"><i class="fas fa-times" id="cross"></i></div>
                   <div class="dp"> <img src="company_driver_dp/<%= comp.company_dp %>"></div>
@@ -19,22 +22,36 @@
                <div class="col-lg-9 c_2">
                    <div class="menu_bar"><i class="fas fa-bars" id="hamburger"></i></div>
                        <div class="row c_2_r container-fluid" id="c_2_r_1">
-                           <div class="upper_cards col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <img class="my_image" src="images/user.jpg">
+                            <div class="upper_cards col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <img class="my_image" src="images/company.gif">
+                                    </div>
+                                    <div class="card-body" style="text-align: justify; padding: 5% 10%;">
+                                        <h1 class="mb-4" style="color: #b10a0a;">About <%= comp.companyName %></h1>
+                                        <P>
+                                            <%= comp.companyName %> was established on 27-may-2011. Its a mumbai based company.
+                                            Lorem ipsum is a placeholder text commonly used to 
+                                            demonstrate the visual form of a document or a typeface without relying on meaningful content.
+                                        <P>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <span style="font-size: 8rem; font-weight: bold; color: #147075;"><%= mydrivers %> </span>
-                                    <a  class="my_link_upper" href="/drivers/<%= comp._id %>"><h1>DRIVERS</h1></a>
-                                </div>
-
                             </div>
-                        </div>
+                            <div class="upper_cards col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <img class="my_image" src="images/driver.gif">
+                                    </div>
+                                    <div class="card-body">
+                                        <span style="font-size: 8rem; font-weight: bold; color: #147075;"><%= mydrivers %> </span>
+                                        <a  class="my_link_upper" href="/drivers/<%= comp._id %>"><h1>DRIVERS</h1></a>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="upper_cards col-lg-4">
                           <div class="card">
                               <div class="card-header">
-                                  <img class="my_image" src="images/user.jpg">
+                                  <img class="my_image" src="images/vehicle.gif">
                               </div>
                               <div class="card-body">
                                   <span style="font-size: 8rem; font-weight: bold; color: #147075;"><%= myvehicles %> </span>
