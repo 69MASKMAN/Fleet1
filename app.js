@@ -245,6 +245,7 @@ app.get('/details/:id', async(req, res) => {
     res.render('details', {comp: mycompany, mydrivers: mydrivers, myvehicles: myvehicles})
 })
 
+// route for drivers of a particular company....
 app.get('/drivers/:Id', async(req, res) => {
   var mycompany
   var driverChunk =[]
@@ -257,7 +258,7 @@ app.get('/drivers/:Id', async(req, res) => {
         driverChunk.push(docs.slice(i,i+chunkSize))
     }
   })
-  res.render('drivers', {drivers :driverChunk}  )
+  res.render('drivers', {drivers :driverChunk,  mycompany: mycompany}  )
 });
 app.get('/vehicles/:Id', async(req, res) => {
   var mycompany
@@ -272,7 +273,7 @@ app.get('/vehicles/:Id', async(req, res) => {
         vehicleChunk.push(docs.slice(i,i+chunkSize))
     }
   })
-  res.render('vehicles', {vehicles :vehicleChunk})
+  res.render('vehicles', {vehicles :vehicleChunk, mycompany: mycompany})
 });
 
 

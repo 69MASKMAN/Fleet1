@@ -254,11 +254,13 @@ input[type=email]:focus,
   text-decoration: none;
 }
 .my_link_upper{
-  color: #bb2121;
   text-decoration: none;
+  color: #bb2121;
+  transition: ease-in 0.2s;
 }
 .my_link_upper:hover{
-  color: #e76868;
+  text-decoration: none;
+  color: #490505;
 }
 /* ///////////////////////////////////////////////////////////////////////////////////// */
 h4{
@@ -281,7 +283,7 @@ h4{
   cursor: pointer;
   min-height: 55vh;
   text-align: center;
-  background-color: #fff;
+  background-color: #fcecec;
   box-shadow: 0 10px 30px gray;
   transition: ease-in 0.2s;
 }
@@ -290,7 +292,7 @@ h4{
 }
 #c_2_r_1 .card-header {
   text-align: center;
-  background-color: #fff;
+  background-color: #fcecec;
   padding: 6%;
 }
 
@@ -307,14 +309,14 @@ h4{
   min-height: 40vh;
   border: 0px;
   color: #000;
-  background-color: #fff;
+  background-color: #fcecec;
   border: 0px;
   text-align: center;
   box-shadow: 0 10px 30px gray;
   transition: ease-in 0.2s;
 }
 #c_2_r_2 .card-header {
-  background-color: #fff;
+  background-color: #fcecec;
   padding: 6%;
 }
 #c_2_r_2 .card .my_icon{

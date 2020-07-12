@@ -13,13 +13,13 @@
                             <div class="upper_cards col-lg-3">
                                 <div class="card">
                                     <div class="card-header">
-                                        <img class="driver_pic" src="/company_driver_dp/<%= cmp.company_dp %> " >
+                                        <img class="driver_pic"  src="/company_driver_dp/<%= cmp.company_dp %> " style="width: 60%; height: 170px; border: 5px solid #d33939; border-radius: 50%;" >
                                     </div>
-                                    <div class="card-body">
-                                        <p><%= cmp.companyName %> </p>
-                                        <p> <%= cmp.companyEmail %> </p> 
-                                        <p> <%= cmp.companyAddress %> </p>    
-                                        <p><%= cmp.contactDetail %>  </p>    
+                                    <div class="card-body" style="text-align: left; margin-left: 6.5%;">
+                                        <p> <b>Name: </b> <%= cmp.companyName %> </p>
+                                        <p> <b>Email: </b> <%= cmp.companyEmail %> </p> 
+                                        <p> <b>Address: </b> <%= cmp.companyAddress %> </p>    
+                                        <p> <b>Contact details: </b> <%= cmp.contactDetail %>  </p>    
                                     </div>
                                     <div class="card-footer">
                                         <a class="btn btn-lg btn-outline-danger" style="margin: 0;" href="/details/<%= cmp._id %>" >Details</a>
