@@ -247,35 +247,32 @@ app.get('/details/:id', async(req, res) => {
 
 app.get('/drivers/:Id', async(req, res) => {
   var mycompany
+  var driverChunk =[]
   await Company.findById( req.params.Id, (err, data) => {
     mycompany= data
   });
-  Driver.find({companyEmail: mycompany.companyEmail}, (err, docs) => {
-    var driverChunk =[]
+  await Driver.find({companyEmail: mycompany.companyEmail}, (err, docs) => {
     var chunkSize = 4
     for(var i=0; i<docs.length; i+=chunkSize) {
         driverChunk.push(docs.slice(i,i+chunkSize))
     }
-    res.render('drivers', {drivers :driverChunk}  )
-   
   })
+  res.render('drivers', {drivers :driverChunk}  )
 });
 app.get('/vehicles/:Id', async(req, res) => {
-  var mydrivers
   var mycompany
-  var myvehicles
+  var vehicleChunk =[]
   await Company.findById( req.params.Id, (err, data) => {
     mycompany= data
   });
-  Vehicle.find({companyEmail: mycompany.companyEmail}, (err, docs) => {
-    var vehicleChunk =[]
+  await Vehicle.find({companyEmail: mycompany.companyEmail}, (err, docs) => {
+    
     var chunkSize = 4
     for(var i=0; i<docs.length; i+=chunkSize) {
         vehicleChunk.push(docs.slice(i,i+chunkSize))
     }
-    res.render('vehicles', {vehicles :vehicleChunk})
-   
   })
+  res.render('vehicles', {vehicles :vehicleChunk})
 });
 
 
@@ -533,9 +530,6 @@ app.get('/get_driver_location/:driverEmail', (req,res)=>{
                       .catch(error => {
                       console.log(error);
                     });
-
-
-
            }
 
 
