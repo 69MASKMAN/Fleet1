@@ -242,6 +242,7 @@ app.get('/details/:id', async(req, res) => {
     });
 
     //  console.log(mycompany, mydrivers)
+    
     res.render('details', {comp: mycompany, mydrivers: mydrivers, myvehicles: myvehicles})
 })
 
@@ -338,10 +339,11 @@ app.get('/user_management',(req,res)=>{
 });  //get request ends
 
 //----------- Route for User Page after Login -----------------//
-app.get('/user_page', (req, res) => {
+app.get('/user_page',async (req, res) => {
 
   //Reading essential information from mongo DataBase
-  Company.find( {"companyEmail" : email }, function(err,company){
+  
+ await Company.find( {"companyEmail" : email }, function(err,company){
 
 
       console.log(company[0].companyName);
