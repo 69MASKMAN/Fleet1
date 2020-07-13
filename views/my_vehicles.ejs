@@ -21,7 +21,7 @@
         </div>
         <div class="modal-body">
           <div class="add_driver">
-            <form method="POST" action="/my_drivers" enctype="multipart/form-data">
+            <form method="POST" action="/my_vehicles">
                     <div class="form-group">
                       <input type="text" class="form-control" name="vehicleName" placeholder="Vehicle Model">
                     </div>
@@ -29,13 +29,13 @@
                       <input type="text" class="form-control" name="vehicleNumber" placeholder="Vehicle Number">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control"  name="pollutionLevel" placeholder="Pollution Check Validity">
+                        <input type="date" class="form-control"  name="pollutionLevel" placeholder="Pollution Check Validity" min="2000-01-02">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="insuranceDetailsNo" placeholder="Vehicle Insurance No.">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="insuranceValidity" placeholder="Insurance Validity">
+                        <input type="date" class="form-control" name="insuranceValidity" placeholder="Insurance Validity" min="2000-01-02">
                     </div>
                     <div class="form-row">
                       <div class="form-group col-6">
@@ -82,7 +82,7 @@
               <td> <%=   vehicle.insuranceDetailsNo %></td>
               <td> <%=   vehicle.insuranceValidity  %></td>
               <td >
-                <a class="my_link" href="/delete_vehicle/<%= vehicle.vehicleEmail %>" >
+                <a class="my_link" href="/delete_vehicle/<%= vehicle.vehicleNumber %>" >
                  <i class="fa fa-trash-alt text-danger"></i>
                 </a>
               </td>
@@ -94,12 +94,6 @@
         </tbody>
       </table>
 </div>
-
-
-
-
-
-
 
 
 <%- include("partials/footer") -%>
